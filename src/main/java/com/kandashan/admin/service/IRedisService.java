@@ -3,7 +3,8 @@ package com.kandashan.admin.service;
 import java.util.Set;
 
 /**
- * Created by CPR199 on 2016-10-18.
+ * redis
+ * Created by silence on 2016-10-18.
  */
 public interface IRedisService {
 

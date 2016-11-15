@@ -1,15 +1,18 @@
 package com.kandashan.admin.service.impl;
 
 import com.kandashan.admin.service.IRedisService;
+import com.kandashan.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
 import java.util.Set;
 
 /**
- * Created by CPR199 on 2016-10-27.
+ * Created by silence on 2016-10-27.
  */
+@Service("redisService")
 public class RedisServiceImpl implements IRedisService {
 
     //操作redis客户端

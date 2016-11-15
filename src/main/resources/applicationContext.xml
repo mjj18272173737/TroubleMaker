@@ -16,6 +16,7 @@
 	         http://www.springframework.org/schema/task
 	         http://www.springframework.org/schema/task/spring-task.xsd">
 
+
     <!-- 自动扫描的包名 -->
     <context:component-scan base-package="com.kandashan"></context:component-scan>
 
@@ -26,6 +27,8 @@
     <task:annotation-driven />
 
     <mvc:default-servlet-handler/>
+
+    <bean id="springContextHolder" class="com.kandashan.util.SpringContextHolder" lazy-init="false"></bean>
 
     <!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
     <bean id="propertyConfigurer"
@@ -38,6 +41,7 @@
         </property>
     </bean>
 
+
     <!-- 静态资源访问 -->
     <!--<mvc:resources mapping="" location="resource/" cache-period="31556926"/>-->
 
@@ -47,6 +51,7 @@
         <property name="jdbcUrl" value="${db.jdbcUrl}" />
         <property name="user" value="${db.user}" />
         <property name="password" value="${db.password}" />
+
     </bean>
 
     <!-- 创建SqlSessionFactory，同时指定数据源 -->

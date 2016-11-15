@@ -1,61 +1,72 @@
 package com.kandashan.admin.controller;
 
-import com.kandashan.admin.entity.Admin;
 import com.kandashan.admin.entity.User;
 import com.kandashan.admin.service.IAdminService;
+import com.kandashan.admin.service.IRedisService;
 import com.kandashan.admin.service.IUserService;
 import com.kandashan.common.UserProfile;
+import com.kandashan.util.Constants;
+import com.kandashan.util.UserUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by silence on 2016-07-25.
  */
 @Controller
-@RequestMapping("/")
-public class LoginController {
+public class LoginController extends BaseController{
 
     Logger log = Logger.getLogger(LoginController.class);
 
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private IRedisService redisService;
+    @Autowired
+    private IUserService userService;
 
-    @RequestMapping(value = "/index")
-    public String index() {
-        return "redirect:/toLogin.do";
-    }
-
-    @RequestMapping("/toLogin")
+    @RequestMapping(value = "/toLogin")
     public String toLogin(HttpServletRequest request) {
-        return "/login";
+        return "login";
     }
 
-    @RequestMapping("/login")
-    public String login(HttpServletRequest request, String userName, String password) {
+    @RequestMapping(value = "/login")
+    public String login(HttpServletRequest request, String userName, String password, String status) {
         HttpSession session = request.getSession();
-        UserProfile userProfile = (UserProfile) session.getAttribute("USER_PROFILE_KEY");
+        UserProfile userProfile = (UserProfile) session.getAttribute(Constants.USER_PROFILE_KEY);
+        Long time = System.currentTimeMillis();
         if (userProfile != null) {
             return "redirect:/admin/index.do";
         }
-        User user = adminService.login(userName, password);
+        User user = userService.login(userName, password);
         if (user == null) {
             return "login";
         }
         userProfile = new UserProfile();
         userProfile.setUser(user);
-        request.getSession().setAttribute("USER_PROFILE_KEY", userProfile);
+        request.getSession().setAttribute(Constants.LOGIN_TIMESTAMP_MILLTS, time);
+        request.getSession().setAttribute(Constants.USER_PROFILE_KEY, userProfile);
+        /*redisService.set(Constants.USER_PROFILE_KEY, user.getUserName());*/
+        String sessionKey = UserUtils.getRedisSessionKey(userName);
+        redisService.set(sessionKey, time.toString());
         return "redirect:/admin/index.do";
     }
+
+    @RequestMapping(value = "/logout")
+    public String logout(HttpServletRequest request) {
+        UserProfile profile = (UserProfile) this.getSession(request).getAttribute(Constants.USER_PROFILE_KEY);
+        if (profile != null) {
+            this.getSession(request).removeAttribute(Constants.USER_PROFILE_KEY);
+            this.getSession(request).removeAttribute(Constants.LOGIN_TIMESTAMP_MILLTS);
+            redisService.del(Constants.USER_PROFILE_KEY);
+        }
+        return "login";
+    }
+
 
 }

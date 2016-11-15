@@ -10,26 +10,28 @@
 <c:set var="_ctx" value="${pageContext.request.contextPath}"></c:set>
 <html>
 <head>
-    <title>login</title>
-    <style>
-    *{
-        margin:0;
-        padding:0;
-    }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="${_ctx}/resource/css/login/css/default.css">
+    <link rel="stylesheet" type="text/css" href="${_ctx}/resource/css/login/css/styles.css">
 </head>
 <body>
 <form id="login_form" name="login_form" action="${_ctx}/login.do" method="post">
-    <div style="text-align: center;">
-        <div>
-            <label>用户名：</label><input type="text" name="userName" >
+    <div class="panel-lite">
+        <div class="thumbur">
+            <div class="icon-lock"></div>
         </div>
-        <div>
-            <label>密码：</label><input type="password" name="password">
+        <h4>用户登录</h4>
+        <div class="form-group">
+            <input required="required" class="form-control" name="userName" />
+            <label class="form-label">用户名    </label>
         </div>
-        <div>
-            <button name="login_button">提交</button>
-        </div>
+        <div class="form-group">
+            <input type="password" required="required" class="form-control" name="password"/>
+            <label class="form-label">密　码</label>
+        </div><a href="#">忘记密码 ?  </a>
+        <button class="floating-btn" name="login_button"><i class="icon-arrow"></i></button>
     </div>
     <script type="text/javascript" src="${_ctx}/resource/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">

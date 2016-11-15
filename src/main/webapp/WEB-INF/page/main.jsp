@@ -49,12 +49,21 @@
             cursor:pointer;
         }
 
+        .logout{
+            float: right;
+        }
+
     </style>
 </head>
 <body>
 <div>
     <!-- 头部 -->
-    <div class="head"></div>
+    <div class="head">
+
+        <div class="logout">
+            <button>登出</button>
+        </div>
+    </div>
     <div class="mid">
         <!-- 左侧菜单 -->
         <div class="left">
@@ -93,5 +102,11 @@
         var code = $(this).find("span").attr("url");
 
     });
+
+    $(".logout").click(function () {
+        if (confirm("是否退出？")) {
+            location.href = "${_ctx}/logout.do";
+        }
+    })
 </script>
 </html>
