@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:lang="http://www.springframework.org/schema/lang" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+	         http://www.springframework.org/schema/tx
+	         http://www.springframework.org/schema/tx/spring-tx.xsd
+	         http://www.springframework.org/schema/mvc
+	         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	         http://www.springframework.org/schema/context
+	         http://www.springframework.org/schema/context/spring-context.xsd
+	         http://www.springframework.org/schema/task
+	         http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 自动扫描的包名 -->
+    <context:component-scan base-package="com.kandashan"></context:component-scan>
+
+    <mvc:annotation-driven />
+
+    <tx:annotation-driven />
+
+    <task:annotation-driven />
+
+    <mvc:default-servlet-handler/>
+
+    <!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 静态资源访问 -->
+    <!--<mvc:resources mapping="" location="resource/" cache-period="31556926"/>-->
+
+    <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="${db.jdbcUrl}" />
+        <property name="user" value="${db.user}" />
+        <property name="password" value="${db.password}" />
+    </bean>
+
+    <!-- 创建SqlSessionFactory，同时指定数据源 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--创建数据映射器，数据映射器必须为接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
+        <property name="basePackage" value="com.kandashan.**.dao" />
+    </bean>
+
+    <import resource="redis-context.xml"/>
+</beans>

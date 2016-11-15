@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kandashan.admin.dao.IUserDao">
+    
+    <resultMap id="userMap" type="com.kandashan.admin.entity.User">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="realName" column="real_name"/>
+        <result property="isValid" column="is_valid"/>
+        <result property="loginDate" column="login_date"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+    </resultMap>
+    
+    <select id="getUserById" parameterType="int" resultType="com.kandashan.admin.entity.User">
+      SELECT * FROM xx_user WHERE user_id=#{userId}
+    </select>
+
+    <select id="getUser" resultMap="userMap">
+      SELECT * FROM xx_user
+    </select>
+
+    <insert id="addUser" parameterType="com.kandashan.admin.entity.User"  useGeneratedKeys="true" >
+        INSERT INTO xx_user (user_name,password, create_date) VALUE (#{userName},#{password}, #{createDate})
+    </insert>
+    
+    <select id="login" resultMap="userMap">
+        SELECT * FROM xx_user WHERE user_name=#{userName} AND password=#{password}
+    </select>
+</mapper>
+

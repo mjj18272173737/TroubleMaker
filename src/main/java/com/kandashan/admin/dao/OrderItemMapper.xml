@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.OrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.OrderItem">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="delivery_quantity" jdbcType="INTEGER" property="deliveryQuantity" />
+    <result column="product_html_file_path" jdbcType="VARCHAR" property="productHtmlFilePath" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_quantity" jdbcType="INTEGER" property="productQuantity" />
+    <result column="product_sn" jdbcType="VARCHAR" property="productSn" />
+    <result column="total_delivery_quantity" jdbcType="INTEGER" property="totalDeliveryQuantity" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, delivery_quantity, product_html_file_path, product_name, 
+    product_price, product_quantity, product_sn, total_delivery_quantity, product_id, 
+    order_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.OrderItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xx_order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.OrderItemExample">
+    delete from xx_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.OrderItem">
+    insert into xx_order_item (id, create_date, modify_date, 
+      delivery_quantity, product_html_file_path, 
+      product_name, product_price, product_quantity, 
+      product_sn, total_delivery_quantity, product_id, 
+      order_id)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{deliveryQuantity,jdbcType=INTEGER}, #{productHtmlFilePath,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DECIMAL}, #{productQuantity,jdbcType=INTEGER}, 
+      #{productSn,jdbcType=VARCHAR}, #{totalDeliveryQuantity,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.OrderItem">
+    insert into xx_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="deliveryQuantity != null">
+        delivery_quantity,
+      </if>
+      <if test="productHtmlFilePath != null">
+        product_html_file_path,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productQuantity != null">
+        product_quantity,
+      </if>
+      <if test="productSn != null">
+        product_sn,
+      </if>
+      <if test="totalDeliveryQuantity != null">
+        total_delivery_quantity,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryQuantity != null">
+        #{deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productHtmlFilePath != null">
+        #{productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productQuantity != null">
+        #{productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productSn != null">
+        #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="totalDeliveryQuantity != null">
+        #{totalDeliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.OrderItemExample" resultType="java.lang.Integer">
+    select count(*) from xx_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_order_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryQuantity != null">
+        delivery_quantity = #{record.deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.productHtmlFilePath != null">
+        product_html_file_path = #{record.productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPrice != null">
+        product_price = #{record.productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productQuantity != null">
+        product_quantity = #{record.productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.productSn != null">
+        product_sn = #{record.productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalDeliveryQuantity != null">
+        total_delivery_quantity = #{record.totalDeliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_order_item
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      delivery_quantity = #{record.deliveryQuantity,jdbcType=INTEGER},
+      product_html_file_path = #{record.productHtmlFilePath,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_price = #{record.productPrice,jdbcType=DECIMAL},
+      product_quantity = #{record.productQuantity,jdbcType=INTEGER},
+      product_sn = #{record.productSn,jdbcType=VARCHAR},
+      total_delivery_quantity = #{record.totalDeliveryQuantity,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.OrderItem">
+    update xx_order_item
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryQuantity != null">
+        delivery_quantity = #{deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productHtmlFilePath != null">
+        product_html_file_path = #{productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productQuantity != null">
+        product_quantity = #{productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productSn != null">
+        product_sn = #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="totalDeliveryQuantity != null">
+        total_delivery_quantity = #{totalDeliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.OrderItem">
+    update xx_order_item
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      delivery_quantity = #{deliveryQuantity,jdbcType=INTEGER},
+      product_html_file_path = #{productHtmlFilePath,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DECIMAL},
+      product_quantity = #{productQuantity,jdbcType=INTEGER},
+      product_sn = #{productSn,jdbcType=VARCHAR},
+      total_delivery_quantity = #{totalDeliveryQuantity,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.OrderItem">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="delivery_quantity" jdbcType="INTEGER" property="deliveryQuantity" />
+    <result column="product_html_file_path" jdbcType="VARCHAR" property="productHtmlFilePath" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_quantity" jdbcType="INTEGER" property="productQuantity" />
+    <result column="product_sn" jdbcType="VARCHAR" property="productSn" />
+    <result column="total_delivery_quantity" jdbcType="INTEGER" property="totalDeliveryQuantity" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, delivery_quantity, product_html_file_path, product_name, 
+    product_price, product_quantity, product_sn, total_delivery_quantity, product_id, 
+    order_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.OrderItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xx_order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.OrderItemExample">
+    delete from xx_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.OrderItem">
+    insert into xx_order_item (id, create_date, modify_date, 
+      delivery_quantity, product_html_file_path, 
+      product_name, product_price, product_quantity, 
+      product_sn, total_delivery_quantity, product_id, 
+      order_id)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{deliveryQuantity,jdbcType=INTEGER}, #{productHtmlFilePath,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DECIMAL}, #{productQuantity,jdbcType=INTEGER}, 
+      #{productSn,jdbcType=VARCHAR}, #{totalDeliveryQuantity,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.OrderItem">
+    insert into xx_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="deliveryQuantity != null">
+        delivery_quantity,
+      </if>
+      <if test="productHtmlFilePath != null">
+        product_html_file_path,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productQuantity != null">
+        product_quantity,
+      </if>
+      <if test="productSn != null">
+        product_sn,
+      </if>
+      <if test="totalDeliveryQuantity != null">
+        total_delivery_quantity,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryQuantity != null">
+        #{deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productHtmlFilePath != null">
+        #{productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productQuantity != null">
+        #{productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productSn != null">
+        #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="totalDeliveryQuantity != null">
+        #{totalDeliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.OrderItemExample" resultType="java.lang.Integer">
+    select count(*) from xx_order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_order_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryQuantity != null">
+        delivery_quantity = #{record.deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.productHtmlFilePath != null">
+        product_html_file_path = #{record.productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPrice != null">
+        product_price = #{record.productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productQuantity != null">
+        product_quantity = #{record.productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.productSn != null">
+        product_sn = #{record.productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalDeliveryQuantity != null">
+        total_delivery_quantity = #{record.totalDeliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_order_item
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      delivery_quantity = #{record.deliveryQuantity,jdbcType=INTEGER},
+      product_html_file_path = #{record.productHtmlFilePath,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_price = #{record.productPrice,jdbcType=DECIMAL},
+      product_quantity = #{record.productQuantity,jdbcType=INTEGER},
+      product_sn = #{record.productSn,jdbcType=VARCHAR},
+      total_delivery_quantity = #{record.totalDeliveryQuantity,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.OrderItem">
+    update xx_order_item
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryQuantity != null">
+        delivery_quantity = #{deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productHtmlFilePath != null">
+        product_html_file_path = #{productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productQuantity != null">
+        product_quantity = #{productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productSn != null">
+        product_sn = #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="totalDeliveryQuantity != null">
+        total_delivery_quantity = #{totalDeliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.OrderItem">
+    update xx_order_item
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      delivery_quantity = #{deliveryQuantity,jdbcType=INTEGER},
+      product_html_file_path = #{productHtmlFilePath,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DECIMAL},
+      product_quantity = #{productQuantity,jdbcType=INTEGER},
+      product_sn = #{productSn,jdbcType=VARCHAR},
+      total_delivery_quantity = #{totalDeliveryQuantity,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

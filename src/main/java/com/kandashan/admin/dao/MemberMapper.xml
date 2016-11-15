@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Member">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="deposit" jdbcType="DECIMAL" property="deposit" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="is_account_enabled" jdbcType="BIT" property="isAccountEnabled" />
+    <result column="is_account_locked" jdbcType="BIT" property="isAccountLocked" />
+    <result column="locked_date" jdbcType="TIMESTAMP" property="lockedDate" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="password_recover_key" jdbcType="VARCHAR" property="passwordRecoverKey" />
+    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="safe_answer" jdbcType="VARCHAR" property="safeAnswer" />
+    <result column="safe_question" jdbcType="VARCHAR" property="safeQuestion" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="member_rank_id" jdbcType="VARCHAR" property="memberRankId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, deposit, email, is_account_enabled, is_account_locked, 
+    locked_date, login_date, login_failure_count, login_ip, password, password_recover_key, 
+    register_ip, safe_answer, safe_question, score, username, member_rank_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.MemberExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xx_member
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_member
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.MemberExample">
+    delete from xx_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.Member">
+    insert into xx_member (id, create_date, modify_date, 
+      deposit, email, is_account_enabled, 
+      is_account_locked, locked_date, login_date, 
+      login_failure_count, login_ip, password, 
+      password_recover_key, register_ip, safe_answer, 
+      safe_question, score, username, 
+      member_rank_id)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{deposit,jdbcType=DECIMAL}, #{email,jdbcType=VARCHAR}, #{isAccountEnabled,jdbcType=BIT}, 
+      #{isAccountLocked,jdbcType=BIT}, #{lockedDate,jdbcType=TIMESTAMP}, #{loginDate,jdbcType=TIMESTAMP}, 
+      #{loginFailureCount,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{passwordRecoverKey,jdbcType=VARCHAR}, #{registerIp,jdbcType=VARCHAR}, #{safeAnswer,jdbcType=VARCHAR}, 
+      #{safeQuestion,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{memberRankId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.Member">
+    insert into xx_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="isAccountEnabled != null">
+        is_account_enabled,
+      </if>
+      <if test="isAccountLocked != null">
+        is_account_locked,
+      </if>
+      <if test="lockedDate != null">
+        locked_date,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+      <if test="loginFailureCount != null">
+        login_failure_count,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="passwordRecoverKey != null">
+        password_recover_key,
+      </if>
+      <if test="registerIp != null">
+        register_ip,
+      </if>
+      <if test="safeAnswer != null">
+        safe_answer,
+      </if>
+      <if test="safeQuestion != null">
+        safe_question,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="memberRankId != null">
+        member_rank_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountEnabled != null">
+        #{isAccountEnabled,jdbcType=BIT},
+      </if>
+      <if test="isAccountLocked != null">
+        #{isAccountLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null">
+        #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null">
+        #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordRecoverKey != null">
+        #{passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="registerIp != null">
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        #{safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        #{safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRankId != null">
+        #{memberRankId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.MemberExample" resultType="java.lang.Integer">
+    select count(*) from xx_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_member
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deposit != null">
+        deposit = #{record.deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAccountEnabled != null">
+        is_account_enabled = #{record.isAccountEnabled,jdbcType=BIT},
+      </if>
+      <if test="record.isAccountLocked != null">
+        is_account_locked = #{record.isAccountLocked,jdbcType=BIT},
+      </if>
+      <if test="record.lockedDate != null">
+        locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginDate != null">
+        login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginFailureCount != null">
+        login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginIp != null">
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordRecoverKey != null">
+        password_recover_key = #{record.passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerIp != null">
+        register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safeAnswer != null">
+        safe_answer = #{record.safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safeQuestion != null">
+        safe_question = #{record.safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberRankId != null">
+        member_rank_id = #{record.memberRankId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_member
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      deposit = #{record.deposit,jdbcType=DECIMAL},
+      email = #{record.email,jdbcType=VARCHAR},
+      is_account_enabled = #{record.isAccountEnabled,jdbcType=BIT},
+      is_account_locked = #{record.isAccountLocked,jdbcType=BIT},
+      locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      password_recover_key = #{record.passwordRecoverKey,jdbcType=VARCHAR},
+      register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      safe_answer = #{record.safeAnswer,jdbcType=VARCHAR},
+      safe_question = #{record.safeQuestion,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      member_rank_id = #{record.memberRankId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.Member">
+    update xx_member
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountEnabled != null">
+        is_account_enabled = #{isAccountEnabled,jdbcType=BIT},
+      </if>
+      <if test="isAccountLocked != null">
+        is_account_locked = #{isAccountLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null">
+        locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null">
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null">
+        login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordRecoverKey != null">
+        password_recover_key = #{passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="registerIp != null">
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        safe_answer = #{safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        safe_question = #{safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRankId != null">
+        member_rank_id = #{memberRankId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Member">
+    update xx_member
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      deposit = #{deposit,jdbcType=DECIMAL},
+      email = #{email,jdbcType=VARCHAR},
+      is_account_enabled = #{isAccountEnabled,jdbcType=BIT},
+      is_account_locked = #{isAccountLocked,jdbcType=BIT},
+      locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      password_recover_key = #{passwordRecoverKey,jdbcType=VARCHAR},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      safe_answer = #{safeAnswer,jdbcType=VARCHAR},
+      safe_question = #{safeQuestion,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      member_rank_id = #{memberRankId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Member">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="deposit" jdbcType="DECIMAL" property="deposit" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="is_account_enabled" jdbcType="BIT" property="isAccountEnabled" />
+    <result column="is_account_locked" jdbcType="BIT" property="isAccountLocked" />
+    <result column="locked_date" jdbcType="TIMESTAMP" property="lockedDate" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="password_recover_key" jdbcType="VARCHAR" property="passwordRecoverKey" />
+    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="safe_answer" jdbcType="VARCHAR" property="safeAnswer" />
+    <result column="safe_question" jdbcType="VARCHAR" property="safeQuestion" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="member_rank_id" jdbcType="VARCHAR" property="memberRankId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, deposit, email, is_account_enabled, is_account_locked, 
+    locked_date, login_date, login_failure_count, login_ip, password, password_recover_key, 
+    register_ip, safe_answer, safe_question, score, username, member_rank_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.MemberExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xx_member
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_member
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.MemberExample">
+    delete from xx_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.Member">
+    insert into xx_member (id, create_date, modify_date, 
+      deposit, email, is_account_enabled, 
+      is_account_locked, locked_date, login_date, 
+      login_failure_count, login_ip, password, 
+      password_recover_key, register_ip, safe_answer, 
+      safe_question, score, username, 
+      member_rank_id)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{deposit,jdbcType=DECIMAL}, #{email,jdbcType=VARCHAR}, #{isAccountEnabled,jdbcType=BIT}, 
+      #{isAccountLocked,jdbcType=BIT}, #{lockedDate,jdbcType=TIMESTAMP}, #{loginDate,jdbcType=TIMESTAMP}, 
+      #{loginFailureCount,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{passwordRecoverKey,jdbcType=VARCHAR}, #{registerIp,jdbcType=VARCHAR}, #{safeAnswer,jdbcType=VARCHAR}, 
+      #{safeQuestion,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{memberRankId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.Member">
+    insert into xx_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="isAccountEnabled != null">
+        is_account_enabled,
+      </if>
+      <if test="isAccountLocked != null">
+        is_account_locked,
+      </if>
+      <if test="lockedDate != null">
+        locked_date,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+      <if test="loginFailureCount != null">
+        login_failure_count,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="passwordRecoverKey != null">
+        password_recover_key,
+      </if>
+      <if test="registerIp != null">
+        register_ip,
+      </if>
+      <if test="safeAnswer != null">
+        safe_answer,
+      </if>
+      <if test="safeQuestion != null">
+        safe_question,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="memberRankId != null">
+        member_rank_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountEnabled != null">
+        #{isAccountEnabled,jdbcType=BIT},
+      </if>
+      <if test="isAccountLocked != null">
+        #{isAccountLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null">
+        #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null">
+        #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordRecoverKey != null">
+        #{passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="registerIp != null">
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        #{safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        #{safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRankId != null">
+        #{memberRankId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.MemberExample" resultType="java.lang.Integer">
+    select count(*) from xx_member
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_member
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deposit != null">
+        deposit = #{record.deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAccountEnabled != null">
+        is_account_enabled = #{record.isAccountEnabled,jdbcType=BIT},
+      </if>
+      <if test="record.isAccountLocked != null">
+        is_account_locked = #{record.isAccountLocked,jdbcType=BIT},
+      </if>
+      <if test="record.lockedDate != null">
+        locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginDate != null">
+        login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginFailureCount != null">
+        login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginIp != null">
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordRecoverKey != null">
+        password_recover_key = #{record.passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerIp != null">
+        register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safeAnswer != null">
+        safe_answer = #{record.safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safeQuestion != null">
+        safe_question = #{record.safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberRankId != null">
+        member_rank_id = #{record.memberRankId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_member
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      deposit = #{record.deposit,jdbcType=DECIMAL},
+      email = #{record.email,jdbcType=VARCHAR},
+      is_account_enabled = #{record.isAccountEnabled,jdbcType=BIT},
+      is_account_locked = #{record.isAccountLocked,jdbcType=BIT},
+      locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      password_recover_key = #{record.passwordRecoverKey,jdbcType=VARCHAR},
+      register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      safe_answer = #{record.safeAnswer,jdbcType=VARCHAR},
+      safe_question = #{record.safeQuestion,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      member_rank_id = #{record.memberRankId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.Member">
+    update xx_member
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountEnabled != null">
+        is_account_enabled = #{isAccountEnabled,jdbcType=BIT},
+      </if>
+      <if test="isAccountLocked != null">
+        is_account_locked = #{isAccountLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null">
+        locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null">
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null">
+        login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordRecoverKey != null">
+        password_recover_key = #{passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="registerIp != null">
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        safe_answer = #{safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        safe_question = #{safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRankId != null">
+        member_rank_id = #{memberRankId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Member">
+    update xx_member
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      deposit = #{deposit,jdbcType=DECIMAL},
+      email = #{email,jdbcType=VARCHAR},
+      is_account_enabled = #{isAccountEnabled,jdbcType=BIT},
+      is_account_locked = #{isAccountLocked,jdbcType=BIT},
+      locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      password_recover_key = #{passwordRecoverKey,jdbcType=VARCHAR},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      safe_answer = #{safeAnswer,jdbcType=VARCHAR},
+      safe_question = #{safeQuestion,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      member_rank_id = #{memberRankId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Article">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="is_publication" jdbcType="BIT" property="isPublication" />
+    <result column="is_recommend" jdbcType="BIT" property="isRecommend" />
+    <result column="is_top" jdbcType="BIT" property="isTop" />
+    <result column="page_count" jdbcType="INTEGER" property="pageCount" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="article_category_id" jdbcType="VARCHAR" property="articleCategoryId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kandashan.admin.entity.ArticleWithBLOBs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, author, hits, html_file_path, is_publication, is_recommend, 
+    is_top, page_count, title, article_category_id
+  </sql>
+  <sql id="Blob_Column_List">
+    content, meta_description, meta_keywords
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kandashan.admin.entity.ArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.ArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_article
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.ArticleExample">
+    delete from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    insert into xx_article (id, create_date, modify_date, 
+      author, hits, html_file_path, 
+      is_publication, is_recommend, is_top, 
+      page_count, title, article_category_id, 
+      content, meta_description, meta_keywords
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{author,jdbcType=VARCHAR}, #{hits,jdbcType=INTEGER}, #{htmlFilePath,jdbcType=VARCHAR}, 
+      #{isPublication,jdbcType=BIT}, #{isRecommend,jdbcType=BIT}, #{isTop,jdbcType=BIT}, 
+      #{pageCount,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{articleCategoryId,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, #{metaKeywords,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    insert into xx_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="isPublication != null">
+        is_publication,
+      </if>
+      <if test="isRecommend != null">
+        is_recommend,
+      </if>
+      <if test="isTop != null">
+        is_top,
+      </if>
+      <if test="pageCount != null">
+        page_count,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublication != null">
+        #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        #{isTop,jdbcType=BIT},
+      </if>
+      <if test="pageCount != null">
+        #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategoryId != null">
+        #{articleCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.ArticleExample" resultType="java.lang.Integer">
+    select count(*) from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=INTEGER},
+      </if>
+      <if test="record.htmlFilePath != null">
+        html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPublication != null">
+        is_publication = #{record.isPublication,jdbcType=BIT},
+      </if>
+      <if test="record.isRecommend != null">
+        is_recommend = #{record.isRecommend,jdbcType=BIT},
+      </if>
+      <if test="record.isTop != null">
+        is_top = #{record.isTop,jdbcType=BIT},
+      </if>
+      <if test="record.pageCount != null">
+        page_count = #{record.pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleCategoryId != null">
+        article_category_id = #{record.articleCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaDescription != null">
+        meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaKeywords != null">
+        meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xx_article
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      author = #{record.author,jdbcType=VARCHAR},
+      hits = #{record.hits,jdbcType=INTEGER},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{record.isPublication,jdbcType=BIT},
+      is_recommend = #{record.isRecommend,jdbcType=BIT},
+      is_top = #{record.isTop,jdbcType=BIT},
+      page_count = #{record.pageCount,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      article_category_id = #{record.articleCategoryId,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_article
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      author = #{record.author,jdbcType=VARCHAR},
+      hits = #{record.hits,jdbcType=INTEGER},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{record.isPublication,jdbcType=BIT},
+      is_recommend = #{record.isRecommend,jdbcType=BIT},
+      is_top = #{record.isTop,jdbcType=BIT},
+      page_count = #{record.pageCount,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      article_category_id = #{record.articleCategoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    update xx_article
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublication != null">
+        is_publication = #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        is_top = #{isTop,jdbcType=BIT},
+      </if>
+      <if test="pageCount != null">
+        page_count = #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id = #{articleCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    update xx_article
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=INTEGER},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      page_count = #{pageCount,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      article_category_id = #{articleCategoryId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Article">
+    update xx_article
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=INTEGER},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      page_count = #{pageCount,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      article_category_id = #{articleCategoryId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Article">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="is_publication" jdbcType="BIT" property="isPublication" />
+    <result column="is_recommend" jdbcType="BIT" property="isRecommend" />
+    <result column="is_top" jdbcType="BIT" property="isTop" />
+    <result column="page_count" jdbcType="INTEGER" property="pageCount" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="article_category_id" jdbcType="VARCHAR" property="articleCategoryId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kandashan.admin.entity.ArticleWithBLOBs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, author, hits, html_file_path, is_publication, is_recommend, 
+    is_top, page_count, title, article_category_id
+  </sql>
+  <sql id="Blob_Column_List">
+    content, meta_description, meta_keywords
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kandashan.admin.entity.ArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.ArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_article
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.ArticleExample">
+    delete from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    insert into xx_article (id, create_date, modify_date, 
+      author, hits, html_file_path, 
+      is_publication, is_recommend, is_top, 
+      page_count, title, article_category_id, 
+      content, meta_description, meta_keywords
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{author,jdbcType=VARCHAR}, #{hits,jdbcType=INTEGER}, #{htmlFilePath,jdbcType=VARCHAR}, 
+      #{isPublication,jdbcType=BIT}, #{isRecommend,jdbcType=BIT}, #{isTop,jdbcType=BIT}, 
+      #{pageCount,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{articleCategoryId,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, #{metaKeywords,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    insert into xx_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="isPublication != null">
+        is_publication,
+      </if>
+      <if test="isRecommend != null">
+        is_recommend,
+      </if>
+      <if test="isTop != null">
+        is_top,
+      </if>
+      <if test="pageCount != null">
+        page_count,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublication != null">
+        #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        #{isTop,jdbcType=BIT},
+      </if>
+      <if test="pageCount != null">
+        #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategoryId != null">
+        #{articleCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.ArticleExample" resultType="java.lang.Integer">
+    select count(*) from xx_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=INTEGER},
+      </if>
+      <if test="record.htmlFilePath != null">
+        html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPublication != null">
+        is_publication = #{record.isPublication,jdbcType=BIT},
+      </if>
+      <if test="record.isRecommend != null">
+        is_recommend = #{record.isRecommend,jdbcType=BIT},
+      </if>
+      <if test="record.isTop != null">
+        is_top = #{record.isTop,jdbcType=BIT},
+      </if>
+      <if test="record.pageCount != null">
+        page_count = #{record.pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleCategoryId != null">
+        article_category_id = #{record.articleCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaDescription != null">
+        meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaKeywords != null">
+        meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xx_article
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      author = #{record.author,jdbcType=VARCHAR},
+      hits = #{record.hits,jdbcType=INTEGER},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{record.isPublication,jdbcType=BIT},
+      is_recommend = #{record.isRecommend,jdbcType=BIT},
+      is_top = #{record.isTop,jdbcType=BIT},
+      page_count = #{record.pageCount,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      article_category_id = #{record.articleCategoryId,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_article
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      author = #{record.author,jdbcType=VARCHAR},
+      hits = #{record.hits,jdbcType=INTEGER},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{record.isPublication,jdbcType=BIT},
+      is_recommend = #{record.isRecommend,jdbcType=BIT},
+      is_top = #{record.isTop,jdbcType=BIT},
+      page_count = #{record.pageCount,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      article_category_id = #{record.articleCategoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    update xx_article
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublication != null">
+        is_publication = #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        is_top = #{isTop,jdbcType=BIT},
+      </if>
+      <if test="pageCount != null">
+        page_count = #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id = #{articleCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kandashan.admin.entity.ArticleWithBLOBs">
+    update xx_article
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=INTEGER},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      page_count = #{pageCount,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      article_category_id = #{articleCategoryId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Article">
+    update xx_article
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=INTEGER},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      page_count = #{pageCount,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      article_category_id = #{articleCategoryId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

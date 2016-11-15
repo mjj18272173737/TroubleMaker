@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="cost" jdbcType="DECIMAL" property="cost" />
+    <result column="freeze_store" jdbcType="INTEGER" property="freezeStore" />
+    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="is_best" jdbcType="BIT" property="isBest" />
+    <result column="is_has_goods_specification" jdbcType="BIT" property="isHasGoodsSpecification" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="is_marketable" jdbcType="BIT" property="isMarketable" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="store" jdbcType="INTEGER" property="store" />
+    <result column="store_place" jdbcType="VARCHAR" property="storePlace" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="weight_unit" jdbcType="INTEGER" property="weightUnit" />
+    <result column="goods_type_id" jdbcType="VARCHAR" property="goodsTypeId" />
+    <result column="brand_id" jdbcType="VARCHAR" property="brandId" />
+    <result column="goods_category_id" jdbcType="VARCHAR" property="goodsCategoryId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kandashan.admin.entity.GoodsWithBLOBs">
+    <result column="goods_image_list_store" jdbcType="LONGVARCHAR" property="goodsImageListStore" />
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, cost, freeze_store, goods_sn, html_file_path, is_best, 
+    is_has_goods_specification, is_hot, is_marketable, is_new, market_price, name, price, 
+    score, store, store_place, weight, weight_unit, goods_type_id, brand_id, goods_category_id
+  </sql>
+  <sql id="Blob_Column_List">
+    goods_image_list_store, introduction, meta_description, meta_keywords
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kandashan.admin.entity.GoodsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.GoodsExample">
+    delete from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    insert into xx_goods (id, create_date, modify_date, 
+      cost, freeze_store, goods_sn, 
+      html_file_path, is_best, is_has_goods_specification, 
+      is_hot, is_marketable, is_new, market_price, 
+      name, price, score, 
+      store, store_place, weight, 
+      weight_unit, goods_type_id, brand_id, 
+      goods_category_id, goods_image_list_store, 
+      introduction, meta_description, 
+      meta_keywords)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{cost,jdbcType=DECIMAL}, #{freezeStore,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, 
+      #{htmlFilePath,jdbcType=VARCHAR}, #{isBest,jdbcType=BIT}, #{isHasGoodsSpecification,jdbcType=BIT}, 
+      #{isHot,jdbcType=BIT}, #{isMarketable,jdbcType=BIT}, #{isNew,jdbcType=BIT}, #{marketPrice,jdbcType=DECIMAL}, 
+      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{score,jdbcType=INTEGER}, 
+      #{store,jdbcType=INTEGER}, #{storePlace,jdbcType=VARCHAR}, #{weight,jdbcType=DOUBLE}, 
+      #{weightUnit,jdbcType=INTEGER}, #{goodsTypeId,jdbcType=VARCHAR}, #{brandId,jdbcType=VARCHAR}, 
+      #{goodsCategoryId,jdbcType=VARCHAR}, #{goodsImageListStore,jdbcType=LONGVARCHAR}, 
+      #{introduction,jdbcType=LONGVARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, 
+      #{metaKeywords,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    insert into xx_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="freezeStore != null">
+        freeze_store,
+      </if>
+      <if test="goodsSn != null">
+        goods_sn,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="isBest != null">
+        is_best,
+      </if>
+      <if test="isHasGoodsSpecification != null">
+        is_has_goods_specification,
+      </if>
+      <if test="isHot != null">
+        is_hot,
+      </if>
+      <if test="isMarketable != null">
+        is_marketable,
+      </if>
+      <if test="isNew != null">
+        is_new,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="store != null">
+        store,
+      </if>
+      <if test="storePlace != null">
+        store_place,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="weightUnit != null">
+        weight_unit,
+      </if>
+      <if test="goodsTypeId != null">
+        goods_type_id,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="goodsCategoryId != null">
+        goods_category_id,
+      </if>
+      <if test="goodsImageListStore != null">
+        goods_image_list_store,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeStore != null">
+        #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSn != null">
+        #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isBest != null">
+        #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHasGoodsSpecification != null">
+        #{isHasGoodsSpecification,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isMarketable != null">
+        #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        #{isNew,jdbcType=BIT},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="store != null">
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="storePlace != null">
+        #{storePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTypeId != null">
+        #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCategoryId != null">
+        #{goodsCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImageListStore != null">
+        #{goodsImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cost != null">
+        cost = #{record.cost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freezeStore != null">
+        freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsSn != null">
+        goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.htmlFilePath != null">
+        html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBest != null">
+        is_best = #{record.isBest,jdbcType=BIT},
+      </if>
+      <if test="record.isHasGoodsSpecification != null">
+        is_has_goods_specification = #{record.isHasGoodsSpecification,jdbcType=BIT},
+      </if>
+      <if test="record.isHot != null">
+        is_hot = #{record.isHot,jdbcType=BIT},
+      </if>
+      <if test="record.isMarketable != null">
+        is_marketable = #{record.isMarketable,jdbcType=BIT},
+      </if>
+      <if test="record.isNew != null">
+        is_new = #{record.isNew,jdbcType=BIT},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.store != null">
+        store = #{record.store,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePlace != null">
+        store_place = #{record.storePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weightUnit != null">
+        weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTypeId != null">
+        goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandId != null">
+        brand_id = #{record.brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsCategoryId != null">
+        goods_category_id = #{record.goodsCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsImageListStore != null">
+        goods_image_list_store = #{record.goodsImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaDescription != null">
+        meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaKeywords != null">
+        meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xx_goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      cost = #{record.cost,jdbcType=DECIMAL},
+      freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{record.isBest,jdbcType=BIT},
+      is_has_goods_specification = #{record.isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_marketable = #{record.isMarketable,jdbcType=BIT},
+      is_new = #{record.isNew,jdbcType=BIT},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      score = #{record.score,jdbcType=INTEGER},
+      store = #{record.store,jdbcType=INTEGER},
+      store_place = #{record.storePlace,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=VARCHAR},
+      goods_category_id = #{record.goodsCategoryId,jdbcType=VARCHAR},
+      goods_image_list_store = #{record.goodsImageListStore,jdbcType=LONGVARCHAR},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      cost = #{record.cost,jdbcType=DECIMAL},
+      freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{record.isBest,jdbcType=BIT},
+      is_has_goods_specification = #{record.isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_marketable = #{record.isMarketable,jdbcType=BIT},
+      is_new = #{record.isNew,jdbcType=BIT},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      score = #{record.score,jdbcType=INTEGER},
+      store = #{record.store,jdbcType=INTEGER},
+      store_place = #{record.storePlace,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=VARCHAR},
+      goods_category_id = #{record.goodsCategoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    update xx_goods
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeStore != null">
+        freeze_store = #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSn != null">
+        goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isBest != null">
+        is_best = #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHasGoodsSpecification != null">
+        is_has_goods_specification = #{isHasGoodsSpecification,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isMarketable != null">
+        is_marketable = #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        is_new = #{isNew,jdbcType=BIT},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="store != null">
+        store = #{store,jdbcType=INTEGER},
+      </if>
+      <if test="storePlace != null">
+        store_place = #{storePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        weight_unit = #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTypeId != null">
+        goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCategoryId != null">
+        goods_category_id = #{goodsCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImageListStore != null">
+        goods_image_list_store = #{goodsImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    update xx_goods
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      cost = #{cost,jdbcType=DECIMAL},
+      freeze_store = #{freezeStore,jdbcType=INTEGER},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{isBest,jdbcType=BIT},
+      is_has_goods_specification = #{isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_marketable = #{isMarketable,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      score = #{score,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      store_place = #{storePlace,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DOUBLE},
+      weight_unit = #{weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      goods_category_id = #{goodsCategoryId,jdbcType=VARCHAR},
+      goods_image_list_store = #{goodsImageListStore,jdbcType=LONGVARCHAR},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Goods">
+    update xx_goods
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      cost = #{cost,jdbcType=DECIMAL},
+      freeze_store = #{freezeStore,jdbcType=INTEGER},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{isBest,jdbcType=BIT},
+      is_has_goods_specification = #{isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_marketable = #{isMarketable,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      score = #{score,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      store_place = #{storePlace,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DOUBLE},
+      weight_unit = #{weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      goods_category_id = #{goodsCategoryId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="cost" jdbcType="DECIMAL" property="cost" />
+    <result column="freeze_store" jdbcType="INTEGER" property="freezeStore" />
+    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="is_best" jdbcType="BIT" property="isBest" />
+    <result column="is_has_goods_specification" jdbcType="BIT" property="isHasGoodsSpecification" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="is_marketable" jdbcType="BIT" property="isMarketable" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="store" jdbcType="INTEGER" property="store" />
+    <result column="store_place" jdbcType="VARCHAR" property="storePlace" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="weight_unit" jdbcType="INTEGER" property="weightUnit" />
+    <result column="goods_type_id" jdbcType="VARCHAR" property="goodsTypeId" />
+    <result column="brand_id" jdbcType="VARCHAR" property="brandId" />
+    <result column="goods_category_id" jdbcType="VARCHAR" property="goodsCategoryId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kandashan.admin.entity.GoodsWithBLOBs">
+    <result column="goods_image_list_store" jdbcType="LONGVARCHAR" property="goodsImageListStore" />
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+    <result column="meta_description" jdbcType="LONGVARCHAR" property="metaDescription" />
+    <result column="meta_keywords" jdbcType="LONGVARCHAR" property="metaKeywords" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, cost, freeze_store, goods_sn, html_file_path, is_best, 
+    is_has_goods_specification, is_hot, is_marketable, is_new, market_price, name, price, 
+    score, store, store_place, weight, weight_unit, goods_type_id, brand_id, goods_category_id
+  </sql>
+  <sql id="Blob_Column_List">
+    goods_image_list_store, introduction, meta_description, meta_keywords
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kandashan.admin.entity.GoodsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.GoodsExample">
+    delete from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    insert into xx_goods (id, create_date, modify_date, 
+      cost, freeze_store, goods_sn, 
+      html_file_path, is_best, is_has_goods_specification, 
+      is_hot, is_marketable, is_new, market_price, 
+      name, price, score, 
+      store, store_place, weight, 
+      weight_unit, goods_type_id, brand_id, 
+      goods_category_id, goods_image_list_store, 
+      introduction, meta_description, 
+      meta_keywords)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{cost,jdbcType=DECIMAL}, #{freezeStore,jdbcType=INTEGER}, #{goodsSn,jdbcType=VARCHAR}, 
+      #{htmlFilePath,jdbcType=VARCHAR}, #{isBest,jdbcType=BIT}, #{isHasGoodsSpecification,jdbcType=BIT}, 
+      #{isHot,jdbcType=BIT}, #{isMarketable,jdbcType=BIT}, #{isNew,jdbcType=BIT}, #{marketPrice,jdbcType=DECIMAL}, 
+      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{score,jdbcType=INTEGER}, 
+      #{store,jdbcType=INTEGER}, #{storePlace,jdbcType=VARCHAR}, #{weight,jdbcType=DOUBLE}, 
+      #{weightUnit,jdbcType=INTEGER}, #{goodsTypeId,jdbcType=VARCHAR}, #{brandId,jdbcType=VARCHAR}, 
+      #{goodsCategoryId,jdbcType=VARCHAR}, #{goodsImageListStore,jdbcType=LONGVARCHAR}, 
+      #{introduction,jdbcType=LONGVARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, 
+      #{metaKeywords,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    insert into xx_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="freezeStore != null">
+        freeze_store,
+      </if>
+      <if test="goodsSn != null">
+        goods_sn,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="isBest != null">
+        is_best,
+      </if>
+      <if test="isHasGoodsSpecification != null">
+        is_has_goods_specification,
+      </if>
+      <if test="isHot != null">
+        is_hot,
+      </if>
+      <if test="isMarketable != null">
+        is_marketable,
+      </if>
+      <if test="isNew != null">
+        is_new,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="store != null">
+        store,
+      </if>
+      <if test="storePlace != null">
+        store_place,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="weightUnit != null">
+        weight_unit,
+      </if>
+      <if test="goodsTypeId != null">
+        goods_type_id,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="goodsCategoryId != null">
+        goods_category_id,
+      </if>
+      <if test="goodsImageListStore != null">
+        goods_image_list_store,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeStore != null">
+        #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSn != null">
+        #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isBest != null">
+        #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHasGoodsSpecification != null">
+        #{isHasGoodsSpecification,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isMarketable != null">
+        #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        #{isNew,jdbcType=BIT},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="store != null">
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="storePlace != null">
+        #{storePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTypeId != null">
+        #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCategoryId != null">
+        #{goodsCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImageListStore != null">
+        #{goodsImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from xx_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cost != null">
+        cost = #{record.cost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freezeStore != null">
+        freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsSn != null">
+        goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.htmlFilePath != null">
+        html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBest != null">
+        is_best = #{record.isBest,jdbcType=BIT},
+      </if>
+      <if test="record.isHasGoodsSpecification != null">
+        is_has_goods_specification = #{record.isHasGoodsSpecification,jdbcType=BIT},
+      </if>
+      <if test="record.isHot != null">
+        is_hot = #{record.isHot,jdbcType=BIT},
+      </if>
+      <if test="record.isMarketable != null">
+        is_marketable = #{record.isMarketable,jdbcType=BIT},
+      </if>
+      <if test="record.isNew != null">
+        is_new = #{record.isNew,jdbcType=BIT},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.store != null">
+        store = #{record.store,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePlace != null">
+        store_place = #{record.storePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weightUnit != null">
+        weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTypeId != null">
+        goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandId != null">
+        brand_id = #{record.brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsCategoryId != null">
+        goods_category_id = #{record.goodsCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsImageListStore != null">
+        goods_image_list_store = #{record.goodsImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaDescription != null">
+        meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.metaKeywords != null">
+        meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xx_goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      cost = #{record.cost,jdbcType=DECIMAL},
+      freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{record.isBest,jdbcType=BIT},
+      is_has_goods_specification = #{record.isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_marketable = #{record.isMarketable,jdbcType=BIT},
+      is_new = #{record.isNew,jdbcType=BIT},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      score = #{record.score,jdbcType=INTEGER},
+      store = #{record.store,jdbcType=INTEGER},
+      store_place = #{record.storePlace,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=VARCHAR},
+      goods_category_id = #{record.goodsCategoryId,jdbcType=VARCHAR},
+      goods_image_list_store = #{record.goodsImageListStore,jdbcType=LONGVARCHAR},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      meta_description = #{record.metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{record.metaKeywords,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      cost = #{record.cost,jdbcType=DECIMAL},
+      freeze_store = #{record.freezeStore,jdbcType=INTEGER},
+      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{record.htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{record.isBest,jdbcType=BIT},
+      is_has_goods_specification = #{record.isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{record.isHot,jdbcType=BIT},
+      is_marketable = #{record.isMarketable,jdbcType=BIT},
+      is_new = #{record.isNew,jdbcType=BIT},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      score = #{record.score,jdbcType=INTEGER},
+      store = #{record.store,jdbcType=INTEGER},
+      store_place = #{record.storePlace,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      weight_unit = #{record.weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=VARCHAR},
+      goods_category_id = #{record.goodsCategoryId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    update xx_goods
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeStore != null">
+        freeze_store = #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSn != null">
+        goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isBest != null">
+        is_best = #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHasGoodsSpecification != null">
+        is_has_goods_specification = #{isHasGoodsSpecification,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isMarketable != null">
+        is_marketable = #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        is_new = #{isNew,jdbcType=BIT},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="store != null">
+        store = #{store,jdbcType=INTEGER},
+      </if>
+      <if test="storePlace != null">
+        store_place = #{storePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        weight_unit = #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTypeId != null">
+        goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCategoryId != null">
+        goods_category_id = #{goodsCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImageListStore != null">
+        goods_image_list_store = #{goodsImageListStore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kandashan.admin.entity.GoodsWithBLOBs">
+    update xx_goods
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      cost = #{cost,jdbcType=DECIMAL},
+      freeze_store = #{freezeStore,jdbcType=INTEGER},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{isBest,jdbcType=BIT},
+      is_has_goods_specification = #{isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_marketable = #{isMarketable,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      score = #{score,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      store_place = #{storePlace,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DOUBLE},
+      weight_unit = #{weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      goods_category_id = #{goodsCategoryId,jdbcType=VARCHAR},
+      goods_image_list_store = #{goodsImageListStore,jdbcType=LONGVARCHAR},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Goods">
+    update xx_goods
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      cost = #{cost,jdbcType=DECIMAL},
+      freeze_store = #{freezeStore,jdbcType=INTEGER},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      is_best = #{isBest,jdbcType=BIT},
+      is_has_goods_specification = #{isHasGoodsSpecification,jdbcType=BIT},
+      is_hot = #{isHot,jdbcType=BIT},
+      is_marketable = #{isMarketable,jdbcType=BIT},
+      is_new = #{isNew,jdbcType=BIT},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      score = #{score,jdbcType=INTEGER},
+      store = #{store,jdbcType=INTEGER},
+      store_place = #{storePlace,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DOUBLE},
+      weight_unit = #{weightUnit,jdbcType=INTEGER},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      goods_category_id = #{goodsCategoryId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

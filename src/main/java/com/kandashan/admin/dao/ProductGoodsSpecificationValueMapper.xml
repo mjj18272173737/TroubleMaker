@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.ProductGoodsSpecificationValueMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    <id column="product_set_id" jdbcType="VARCHAR" property="productSetId" />
+    <id column="goods_specification_value_set_id" jdbcType="VARCHAR" property="goodsSpecificationValueSetId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    product_set_id, goods_specification_value_set_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_product_goods_specification_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    delete from xx_product_goods_specification_value
+    where product_set_id = #{productSetId,jdbcType=VARCHAR}
+      and goods_specification_value_set_id = #{goodsSpecificationValueSetId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueExample">
+    delete from xx_product_goods_specification_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    insert into xx_product_goods_specification_value (product_set_id, goods_specification_value_set_id
+      )
+    values (#{productSetId,jdbcType=VARCHAR}, #{goodsSpecificationValueSetId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    insert into xx_product_goods_specification_value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productSetId != null">
+        product_set_id,
+      </if>
+      <if test="goodsSpecificationValueSetId != null">
+        goods_specification_value_set_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productSetId != null">
+        #{productSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSpecificationValueSetId != null">
+        #{goodsSpecificationValueSetId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueExample" resultType="java.lang.Integer">
+    select count(*) from xx_product_goods_specification_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_product_goods_specification_value
+    <set>
+      <if test="record.productSetId != null">
+        product_set_id = #{record.productSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsSpecificationValueSetId != null">
+        goods_specification_value_set_id = #{record.goodsSpecificationValueSetId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_product_goods_specification_value
+    set product_set_id = #{record.productSetId,jdbcType=VARCHAR},
+      goods_specification_value_set_id = #{record.goodsSpecificationValueSetId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    <id column="product_set_id" jdbcType="VARCHAR" property="productSetId" />
+    <id column="goods_specification_value_set_id" jdbcType="VARCHAR" property="goodsSpecificationValueSetId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    product_set_id, goods_specification_value_set_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_product_goods_specification_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    delete from xx_product_goods_specification_value
+    where product_set_id = #{productSetId,jdbcType=VARCHAR}
+      and goods_specification_value_set_id = #{goodsSpecificationValueSetId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueExample">
+    delete from xx_product_goods_specification_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    insert into xx_product_goods_specification_value (product_set_id, goods_specification_value_set_id
+      )
+    values (#{productSetId,jdbcType=VARCHAR}, #{goodsSpecificationValueSetId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueKey">
+    insert into xx_product_goods_specification_value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productSetId != null">
+        product_set_id,
+      </if>
+      <if test="goodsSpecificationValueSetId != null">
+        goods_specification_value_set_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productSetId != null">
+        #{productSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSpecificationValueSetId != null">
+        #{goodsSpecificationValueSetId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.ProductGoodsSpecificationValueExample" resultType="java.lang.Integer">
+    select count(*) from xx_product_goods_specification_value
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_product_goods_specification_value
+    <set>
+      <if test="record.productSetId != null">
+        product_set_id = #{record.productSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsSpecificationValueSetId != null">
+        goods_specification_value_set_id = #{record.goodsSpecificationValueSetId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_product_goods_specification_value
+    set product_set_id = #{record.productSetId,jdbcType=VARCHAR},
+      goods_specification_value_set_id = #{record.goodsSpecificationValueSetId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

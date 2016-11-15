@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!--
+<generatorConfiguration>
+    &lt;!&ndash;数据库驱动jar &ndash;&gt;
+    <classPathEntry location="D:\mavenResources\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
+
+    <context id="DB2Tables" targetRuntime="Ibatis2Java5">
+        &lt;!&ndash;去除注释  &ndash;&gt;
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        &lt;!&ndash;数据库连接 &ndash;&gt;
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/trouble_maker"
+                        userId="root"
+                        password="meijiajie">
+        </jdbcConnection>
+        &lt;!&ndash;默认false
+        Java type resolver will always use java.math.BigDecimal if the database column is of type DECIMAL or NUMERIC.
+        &ndash;&gt;
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        &lt;!&ndash;生成实体类 指定包名 以及生成的地址 （可以自定义地址，但是路径不存在不会自动创建  使用Maven生成在target目录下，会自动创建） &ndash;&gt;
+        <javaModelGenerator targetPackage="com.kandashan.admin.entity" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        &lt;!&ndash;生成SQLMAP文件 &ndash;&gt;
+        <sqlMapGenerator targetPackage="com.kandashan.admin.dao"  targetProject="MAVEN">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        &lt;!&ndash;生成Dao文件 可以配置 type="XMLMAPPER"生成xml的dao实现  context id="DB2Tables" 修改targetRuntime="MyBatis3"  &ndash;&gt;
+        <javaClientGenerator type="SPRING" targetPackage="com.kandashan.admin.dao"  targetProject="MAVEN">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        &lt;!&ndash;对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等&ndash;&gt;
+        <table tableName="xx_admin" domainObjectName="Admin" />
+        <table tableName="xx_admin_role" domainObjectName="AdminRole" />
+        <table tableName="xx_area" domainObjectName="Area" />
+        <table tableName="xx_article" domainObjectName="Article" />
+        <table tableName="xx_article_category" domainObjectName="ArticleCategory" />
+        <table tableName="xx_brand" domainObjectName="Brand" />
+        <table tableName="xx_cart_item" domainObjectName="CartItem" />
+        <table tableName="xx_comment" domainObjectName="Comment" />
+        <table tableName="xx_delivery_corp" domainObjectName="DeliveryCorp" />
+        <table tableName="xx_delivery_item" domainObjectName="DeliveryItem" />
+        <table tableName="xx_delivery_type" domainObjectName="DeliveryType" />
+        <table tableName="xx_deposit" domainObjectName="Deposit" />
+        <table tableName="xx_friend_link" domainObjectName="FriendLink" />
+        <table tableName="xx_goods" domainObjectName="Goods" />
+        <table tableName="xx_goods_attribute" domainObjectName="GoodsAttribute" />
+        <table tableName="xx_goods_category" domainObjectName="GoodsCategory" />
+        <table tableName="xx_goods_goods_attribute_map_store" domainObjectName="GoodsGoodsAttributeMapStore" />
+        <table tableName="xx_goods_goods_specification" domainObjectName="GoodsGoodsSpecification" />
+        <table tableName="xx_goods_notify" domainObjectName="GoodsNotify" />
+        <table tableName="xx_goods_specification" domainObjectName="GoodsSpecification" />
+        <table tableName="xx_goods_specification_value" domainObjectName="GoodsSpecificationValue" />
+        <table tableName="xx_goods_type" domainObjectName="GoodsType" />
+
+        <table tableName="xx_instant_messaging" domainObjectName="InstantMessaging" />
+        <table tableName="xx_leave_message" domainObjectName="LeaveMessage" />
+        <table tableName="xx_log" domainObjectName="Log" />
+        <table tableName="xx_log_config" domainObjectName="LogConfig" />
+        <table tableName="xx_member" domainObjectName="Member" />
+        <table tableName="xx_member_attribute" domainObjectName="MemberAttribute" />
+        <table tableName="xx_member_goods" domainObjectName="MemberGoods" />
+        <table tableName="xx_member_member_attribute_map_store" domainObjectName="MemberMemberAttributeMapStore" />
+        <table tableName="xx_member_rank" domainObjectName="MemberRank" />
+        <table tableName="xx_message" domainObjectName="Message" />
+        <table tableName="xx_navigation" domainObjectName="Navigation" />
+        <table tableName="xx_order" domainObjectName="Order" />
+        <table tableName="xx_order_item" domainObjectName="OrderItem" />
+        <table tableName="xx_order_log" domainObjectName="OrderLog" />
+        <table tableName="xx_payment" domainObjectName="Payment" />
+        <table tableName="xx_payment_config" domainObjectName="PaymentConfig" />
+        <table tableName="xx_product" domainObjectName="Product" />
+        <table tableName="xx_product_goods_specification_value" domainObjectName="ProductGoodsSpecificationValue" />
+        <table tableName="xx_receiver" domainObjectName="Receiver" />
+        <table tableName="xx_refund" domainObjectName="refund" />
+        <table tableName="xx_reship" domainObjectName="Reship" />
+        <table tableName="xx_role" domainObjectName="Role" />
+        <table tableName="xx_shipping" domainObjectName="Shipping" />
+    </context>
+</generatorConfiguration>
+-->
+
+<generatorConfiguration>
+    <classPathEntry location="D:\mavenResources\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/trouble_maker"
+                        userId="root"
+                        password="meijiajie">
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="com.kandashan.admin.entity"
+                            targetProject="D:/nodeProject/TroubleMaker/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.kandashan.admin.dao"
+                         targetProject="D:/nodeProject/TroubleMaker/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.kandashan.admin.dao"
+                             targetProject="D:/nodeProject/TroubleMaker/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+
+        <!--<table tableName="xx_admin" domainObjectName="FeeBase"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+        <table tableName="xx_admin" domainObjectName="Admin"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <!--<table tableName="xx_admin_role" domainObjectName="AdminRole" />
+        <table tableName="xx_area" domainObjectName="Area" />
+        <table tableName="xx_article" domainObjectName="Article" />
+        <table tableName="xx_article_category" domainObjectName="ArticleCategory" />
+        <table tableName="xx_brand" domainObjectName="Brand" />
+        <table tableName="xx_cart_item" domainObjectName="CartItem" />
+        <table tableName="xx_comment" domainObjectName="Comment" />
+        <table tableName="xx_delivery_corp" domainObjectName="DeliveryCorp" />
+        <table tableName="xx_delivery_item" domainObjectName="DeliveryItem" />
+        <table tableName="xx_delivery_type" domainObjectName="DeliveryType" />
+        <table tableName="xx_deposit" domainObjectName="Deposit" />
+        <table tableName="xx_friend_link" domainObjectName="FriendLink" />
+        <table tableName="xx_goods" domainObjectName="Goods" />
+        <table tableName="xx_goods_attribute" domainObjectName="GoodsAttribute" />
+        <table tableName="xx_goods_category" domainObjectName="GoodsCategory" />
+        <table tableName="xx_goods_goods_attribute_map_store" domainObjectName="GoodsGoodsAttributeMapStore" />
+        <table tableName="xx_goods_goods_specification" domainObjectName="GoodsGoodsSpecification" />
+        <table tableName="xx_goods_notify" domainObjectName="GoodsNotify" />
+        <table tableName="xx_goods_specification" domainObjectName="GoodsSpecification" />
+        <table tableName="xx_goods_specification_value" domainObjectName="GoodsSpecificationValue" />
+        <table tableName="xx_goods_type" domainObjectName="GoodsType" />
+
+        <table tableName="xx_instant_messaging" domainObjectName="InstantMessaging" />
+        <table tableName="xx_leave_message" domainObjectName="LeaveMessage" />
+        <table tableName="xx_log" domainObjectName="Log" />
+        <table tableName="xx_log_config" domainObjectName="LogConfig" />
+        <table tableName="xx_member" domainObjectName="Member" />
+        <table tableName="xx_member_attribute" domainObjectName="MemberAttribute" />
+        <table tableName="xx_member_goods" domainObjectName="MemberGoods" />
+        <table tableName="xx_member_member_attribute_map_store" domainObjectName="MemberMemberAttributeMapStore" />
+        <table tableName="xx_member_rank" domainObjectName="MemberRank" />
+        <table tableName="xx_message" domainObjectName="Message" />
+        <table tableName="xx_navigation" domainObjectName="Navigation" />
+        <table tableName="xx_order" domainObjectName="Order" />
+        <table tableName="xx_order_item" domainObjectName="OrderItem" />
+        <table tableName="xx_order_log" domainObjectName="OrderLog" />
+        <table tableName="xx_payment" domainObjectName="Payment" />
+        <table tableName="xx_payment_config" domainObjectName="PaymentConfig" />
+        <table tableName="xx_product" domainObjectName="Product" />
+        <table tableName="xx_product_goods_specification_value" domainObjectName="ProductGoodsSpecificationValue" />
+        <table tableName="xx_receiver" domainObjectName="Receiver" />
+        <table tableName="xx_refund" domainObjectName="refund" />
+        <table tableName="xx_reship" domainObjectName="Reship" />
+        <table tableName="xx_role" domainObjectName="Role" />
+        <table tableName="xx_shipping" domainObjectName="Shipping" />-->
+    </context>
+</generatorConfiguration>

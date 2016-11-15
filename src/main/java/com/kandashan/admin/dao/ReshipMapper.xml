@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.ReshipMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Reship">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="delivery_corp_name" jdbcType="VARCHAR" property="deliveryCorpName" />
+    <result column="delivery_fee" jdbcType="DECIMAL" property="deliveryFee" />
+    <result column="delivery_sn" jdbcType="VARCHAR" property="deliverySn" />
+    <result column="delivery_type_name" jdbcType="VARCHAR" property="deliveryTypeName" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="reship_sn" jdbcType="VARCHAR" property="reshipSn" />
+    <result column="ship_address" jdbcType="VARCHAR" property="shipAddress" />
+    <result column="ship_area" jdbcType="VARCHAR" property="shipArea" />
+    <result column="ship_area_path" jdbcType="VARCHAR" property="shipAreaPath" />
+    <result column="ship_mobile" jdbcType="VARCHAR" property="shipMobile" />
+    <result column="ship_name" jdbcType="VARCHAR" property="shipName" />
+    <result column="ship_phone" jdbcType="VARCHAR" property="shipPhone" />
+    <result column="ship_zip_code" jdbcType="VARCHAR" property="shipZipCode" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="delivery_type_id" jdbcType="VARCHAR" property="deliveryTypeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, delivery_corp_name, delivery_fee, delivery_sn, delivery_type_name, 
+    memo, reship_sn, ship_address, ship_area, ship_area_path, ship_mobile, ship_name, 
+    ship_phone, ship_zip_code, order_id, delivery_type_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.ReshipExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_reship
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xx_reship
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_reship
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.ReshipExample">
+    delete from xx_reship
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.Reship">
+    insert into xx_reship (id, create_date, modify_date, 
+      delivery_corp_name, delivery_fee, delivery_sn, 
+      delivery_type_name, memo, reship_sn, 
+      ship_address, ship_area, ship_area_path, 
+      ship_mobile, ship_name, ship_phone, 
+      ship_zip_code, order_id, delivery_type_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{deliveryCorpName,jdbcType=VARCHAR}, #{deliveryFee,jdbcType=DECIMAL}, #{deliverySn,jdbcType=VARCHAR}, 
+      #{deliveryTypeName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{reshipSn,jdbcType=VARCHAR}, 
+      #{shipAddress,jdbcType=VARCHAR}, #{shipArea,jdbcType=VARCHAR}, #{shipAreaPath,jdbcType=VARCHAR}, 
+      #{shipMobile,jdbcType=VARCHAR}, #{shipName,jdbcType=VARCHAR}, #{shipPhone,jdbcType=VARCHAR}, 
+      #{shipZipCode,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{deliveryTypeId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.Reship">
+    insert into xx_reship
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="deliveryCorpName != null">
+        delivery_corp_name,
+      </if>
+      <if test="deliveryFee != null">
+        delivery_fee,
+      </if>
+      <if test="deliverySn != null">
+        delivery_sn,
+      </if>
+      <if test="deliveryTypeName != null">
+        delivery_type_name,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="reshipSn != null">
+        reship_sn,
+      </if>
+      <if test="shipAddress != null">
+        ship_address,
+      </if>
+      <if test="shipArea != null">
+        ship_area,
+      </if>
+      <if test="shipAreaPath != null">
+        ship_area_path,
+      </if>
+      <if test="shipMobile != null">
+        ship_mobile,
+      </if>
+      <if test="shipName != null">
+        ship_name,
+      </if>
+      <if test="shipPhone != null">
+        ship_phone,
+      </if>
+      <if test="shipZipCode != null">
+        ship_zip_code,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="deliveryTypeId != null">
+        delivery_type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryCorpName != null">
+        #{deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null">
+        #{deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverySn != null">
+        #{deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeName != null">
+        #{deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="reshipSn != null">
+        #{reshipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null">
+        #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipArea != null">
+        #{shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAreaPath != null">
+        #{shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null">
+        #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPhone != null">
+        #{shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZipCode != null">
+        #{shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeId != null">
+        #{deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.ReshipExample" resultType="java.lang.Integer">
+    select count(*) from xx_reship
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_reship
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryCorpName != null">
+        delivery_corp_name = #{record.deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryFee != null">
+        delivery_fee = #{record.deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliverySn != null">
+        delivery_sn = #{record.deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryTypeName != null">
+        delivery_type_name = #{record.deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null">
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reshipSn != null">
+        reship_sn = #{record.reshipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipAddress != null">
+        ship_address = #{record.shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipArea != null">
+        ship_area = #{record.shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipAreaPath != null">
+        ship_area_path = #{record.shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipMobile != null">
+        ship_mobile = #{record.shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipName != null">
+        ship_name = #{record.shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipPhone != null">
+        ship_phone = #{record.shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipZipCode != null">
+        ship_zip_code = #{record.shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryTypeId != null">
+        delivery_type_id = #{record.deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_reship
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      delivery_corp_name = #{record.deliveryCorpName,jdbcType=VARCHAR},
+      delivery_fee = #{record.deliveryFee,jdbcType=DECIMAL},
+      delivery_sn = #{record.deliverySn,jdbcType=VARCHAR},
+      delivery_type_name = #{record.deliveryTypeName,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      reship_sn = #{record.reshipSn,jdbcType=VARCHAR},
+      ship_address = #{record.shipAddress,jdbcType=VARCHAR},
+      ship_area = #{record.shipArea,jdbcType=VARCHAR},
+      ship_area_path = #{record.shipAreaPath,jdbcType=VARCHAR},
+      ship_mobile = #{record.shipMobile,jdbcType=VARCHAR},
+      ship_name = #{record.shipName,jdbcType=VARCHAR},
+      ship_phone = #{record.shipPhone,jdbcType=VARCHAR},
+      ship_zip_code = #{record.shipZipCode,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      delivery_type_id = #{record.deliveryTypeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.Reship">
+    update xx_reship
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryCorpName != null">
+        delivery_corp_name = #{deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null">
+        delivery_fee = #{deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverySn != null">
+        delivery_sn = #{deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeName != null">
+        delivery_type_name = #{deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="reshipSn != null">
+        reship_sn = #{reshipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null">
+        ship_address = #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipArea != null">
+        ship_area = #{shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAreaPath != null">
+        ship_area_path = #{shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null">
+        ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        ship_name = #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPhone != null">
+        ship_phone = #{shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZipCode != null">
+        ship_zip_code = #{shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeId != null">
+        delivery_type_id = #{deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Reship">
+    update xx_reship
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      delivery_corp_name = #{deliveryCorpName,jdbcType=VARCHAR},
+      delivery_fee = #{deliveryFee,jdbcType=DECIMAL},
+      delivery_sn = #{deliverySn,jdbcType=VARCHAR},
+      delivery_type_name = #{deliveryTypeName,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      reship_sn = #{reshipSn,jdbcType=VARCHAR},
+      ship_address = #{shipAddress,jdbcType=VARCHAR},
+      ship_area = #{shipArea,jdbcType=VARCHAR},
+      ship_area_path = #{shipAreaPath,jdbcType=VARCHAR},
+      ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      ship_name = #{shipName,jdbcType=VARCHAR},
+      ship_phone = #{shipPhone,jdbcType=VARCHAR},
+      ship_zip_code = #{shipZipCode,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      delivery_type_id = #{deliveryTypeId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.Reship">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="delivery_corp_name" jdbcType="VARCHAR" property="deliveryCorpName" />
+    <result column="delivery_fee" jdbcType="DECIMAL" property="deliveryFee" />
+    <result column="delivery_sn" jdbcType="VARCHAR" property="deliverySn" />
+    <result column="delivery_type_name" jdbcType="VARCHAR" property="deliveryTypeName" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="reship_sn" jdbcType="VARCHAR" property="reshipSn" />
+    <result column="ship_address" jdbcType="VARCHAR" property="shipAddress" />
+    <result column="ship_area" jdbcType="VARCHAR" property="shipArea" />
+    <result column="ship_area_path" jdbcType="VARCHAR" property="shipAreaPath" />
+    <result column="ship_mobile" jdbcType="VARCHAR" property="shipMobile" />
+    <result column="ship_name" jdbcType="VARCHAR" property="shipName" />
+    <result column="ship_phone" jdbcType="VARCHAR" property="shipPhone" />
+    <result column="ship_zip_code" jdbcType="VARCHAR" property="shipZipCode" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="delivery_type_id" jdbcType="VARCHAR" property="deliveryTypeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, delivery_corp_name, delivery_fee, delivery_sn, delivery_type_name, 
+    memo, reship_sn, ship_address, ship_area, ship_area_path, ship_mobile, ship_name, 
+    ship_phone, ship_zip_code, order_id, delivery_type_id
+  </sql>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.ReshipExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_reship
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xx_reship
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_reship
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.ReshipExample">
+    delete from xx_reship
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.Reship">
+    insert into xx_reship (id, create_date, modify_date, 
+      delivery_corp_name, delivery_fee, delivery_sn, 
+      delivery_type_name, memo, reship_sn, 
+      ship_address, ship_area, ship_area_path, 
+      ship_mobile, ship_name, ship_phone, 
+      ship_zip_code, order_id, delivery_type_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{deliveryCorpName,jdbcType=VARCHAR}, #{deliveryFee,jdbcType=DECIMAL}, #{deliverySn,jdbcType=VARCHAR}, 
+      #{deliveryTypeName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{reshipSn,jdbcType=VARCHAR}, 
+      #{shipAddress,jdbcType=VARCHAR}, #{shipArea,jdbcType=VARCHAR}, #{shipAreaPath,jdbcType=VARCHAR}, 
+      #{shipMobile,jdbcType=VARCHAR}, #{shipName,jdbcType=VARCHAR}, #{shipPhone,jdbcType=VARCHAR}, 
+      #{shipZipCode,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{deliveryTypeId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.Reship">
+    insert into xx_reship
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="deliveryCorpName != null">
+        delivery_corp_name,
+      </if>
+      <if test="deliveryFee != null">
+        delivery_fee,
+      </if>
+      <if test="deliverySn != null">
+        delivery_sn,
+      </if>
+      <if test="deliveryTypeName != null">
+        delivery_type_name,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="reshipSn != null">
+        reship_sn,
+      </if>
+      <if test="shipAddress != null">
+        ship_address,
+      </if>
+      <if test="shipArea != null">
+        ship_area,
+      </if>
+      <if test="shipAreaPath != null">
+        ship_area_path,
+      </if>
+      <if test="shipMobile != null">
+        ship_mobile,
+      </if>
+      <if test="shipName != null">
+        ship_name,
+      </if>
+      <if test="shipPhone != null">
+        ship_phone,
+      </if>
+      <if test="shipZipCode != null">
+        ship_zip_code,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="deliveryTypeId != null">
+        delivery_type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryCorpName != null">
+        #{deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null">
+        #{deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverySn != null">
+        #{deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeName != null">
+        #{deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="reshipSn != null">
+        #{reshipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null">
+        #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipArea != null">
+        #{shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAreaPath != null">
+        #{shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null">
+        #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPhone != null">
+        #{shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZipCode != null">
+        #{shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeId != null">
+        #{deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.ReshipExample" resultType="java.lang.Integer">
+    select count(*) from xx_reship
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_reship
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryCorpName != null">
+        delivery_corp_name = #{record.deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryFee != null">
+        delivery_fee = #{record.deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliverySn != null">
+        delivery_sn = #{record.deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryTypeName != null">
+        delivery_type_name = #{record.deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null">
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reshipSn != null">
+        reship_sn = #{record.reshipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipAddress != null">
+        ship_address = #{record.shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipArea != null">
+        ship_area = #{record.shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipAreaPath != null">
+        ship_area_path = #{record.shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipMobile != null">
+        ship_mobile = #{record.shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipName != null">
+        ship_name = #{record.shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipPhone != null">
+        ship_phone = #{record.shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipZipCode != null">
+        ship_zip_code = #{record.shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryTypeId != null">
+        delivery_type_id = #{record.deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_reship
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      delivery_corp_name = #{record.deliveryCorpName,jdbcType=VARCHAR},
+      delivery_fee = #{record.deliveryFee,jdbcType=DECIMAL},
+      delivery_sn = #{record.deliverySn,jdbcType=VARCHAR},
+      delivery_type_name = #{record.deliveryTypeName,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      reship_sn = #{record.reshipSn,jdbcType=VARCHAR},
+      ship_address = #{record.shipAddress,jdbcType=VARCHAR},
+      ship_area = #{record.shipArea,jdbcType=VARCHAR},
+      ship_area_path = #{record.shipAreaPath,jdbcType=VARCHAR},
+      ship_mobile = #{record.shipMobile,jdbcType=VARCHAR},
+      ship_name = #{record.shipName,jdbcType=VARCHAR},
+      ship_phone = #{record.shipPhone,jdbcType=VARCHAR},
+      ship_zip_code = #{record.shipZipCode,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      delivery_type_id = #{record.deliveryTypeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.Reship">
+    update xx_reship
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryCorpName != null">
+        delivery_corp_name = #{deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null">
+        delivery_fee = #{deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverySn != null">
+        delivery_sn = #{deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeName != null">
+        delivery_type_name = #{deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="reshipSn != null">
+        reship_sn = #{reshipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null">
+        ship_address = #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipArea != null">
+        ship_area = #{shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAreaPath != null">
+        ship_area_path = #{shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null">
+        ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        ship_name = #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPhone != null">
+        ship_phone = #{shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZipCode != null">
+        ship_zip_code = #{shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeId != null">
+        delivery_type_id = #{deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.Reship">
+    update xx_reship
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      delivery_corp_name = #{deliveryCorpName,jdbcType=VARCHAR},
+      delivery_fee = #{deliveryFee,jdbcType=DECIMAL},
+      delivery_sn = #{deliverySn,jdbcType=VARCHAR},
+      delivery_type_name = #{deliveryTypeName,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      reship_sn = #{reshipSn,jdbcType=VARCHAR},
+      ship_address = #{shipAddress,jdbcType=VARCHAR},
+      ship_area = #{shipArea,jdbcType=VARCHAR},
+      ship_area_path = #{shipAreaPath,jdbcType=VARCHAR},
+      ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      ship_name = #{shipName,jdbcType=VARCHAR},
+      ship_phone = #{shipPhone,jdbcType=VARCHAR},
+      ship_zip_code = #{shipZipCode,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      delivery_type_id = #{deliveryTypeId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

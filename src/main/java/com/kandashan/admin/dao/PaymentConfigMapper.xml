@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.PaymentConfigMapper">
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.PaymentConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="bargainor_id" jdbcType="VARCHAR" property="bargainorId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="order_list" jdbcType="INTEGER" property="orderList" />
+    <result column="payment_config_type" jdbcType="INTEGER" property="paymentConfigType" />
+    <result column="payment_fee" jdbcType="DECIMAL" property="paymentFee" />
+    <result column="payment_fee_type" jdbcType="INTEGER" property="paymentFeeType" />
+    <result column="payment_product_id" jdbcType="VARCHAR" property="paymentProductId" />
+    <result column="bargainor_key" jdbcType="VARCHAR" property="bargainorKey" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kandashan.admin.entity.PaymentConfig">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, bargainor_id, name, order_list, payment_config_type, 
+    payment_fee, payment_fee_type, payment_product_id, bargainor_key
+  </sql>
+  <sql id="Blob_Column_List">
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kandashan.admin.entity.PaymentConfigExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.PaymentConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_payment_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_payment_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.PaymentConfigExample">
+    delete from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    insert into xx_payment_config (id, create_date, modify_date, 
+      bargainor_id, name, order_list, 
+      payment_config_type, payment_fee, payment_fee_type, 
+      payment_product_id, bargainor_key, description
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{bargainorId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{orderList,jdbcType=INTEGER}, 
+      #{paymentConfigType,jdbcType=INTEGER}, #{paymentFee,jdbcType=DECIMAL}, #{paymentFeeType,jdbcType=INTEGER}, 
+      #{paymentProductId,jdbcType=VARCHAR}, #{bargainorKey,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    insert into xx_payment_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="bargainorId != null">
+        bargainor_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="orderList != null">
+        order_list,
+      </if>
+      <if test="paymentConfigType != null">
+        payment_config_type,
+      </if>
+      <if test="paymentFee != null">
+        payment_fee,
+      </if>
+      <if test="paymentFeeType != null">
+        payment_fee_type,
+      </if>
+      <if test="paymentProductId != null">
+        payment_product_id,
+      </if>
+      <if test="bargainorKey != null">
+        bargainor_key,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bargainorId != null">
+        #{bargainorId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderList != null">
+        #{orderList,jdbcType=INTEGER},
+      </if>
+      <if test="paymentConfigType != null">
+        #{paymentConfigType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentFee != null">
+        #{paymentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentFeeType != null">
+        #{paymentFeeType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentProductId != null">
+        #{paymentProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="bargainorKey != null">
+        #{bargainorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.PaymentConfigExample" resultType="java.lang.Integer">
+    select count(*) from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_payment_config
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bargainorId != null">
+        bargainor_id = #{record.bargainorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderList != null">
+        order_list = #{record.orderList,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentConfigType != null">
+        payment_config_type = #{record.paymentConfigType,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentFee != null">
+        payment_fee = #{record.paymentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymentFeeType != null">
+        payment_fee_type = #{record.paymentFeeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentProductId != null">
+        payment_product_id = #{record.paymentProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bargainorKey != null">
+        bargainor_key = #{record.bargainorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xx_payment_config
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{record.bargainorId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      order_list = #{record.orderList,jdbcType=INTEGER},
+      payment_config_type = #{record.paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{record.paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{record.paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{record.paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{record.bargainorKey,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_payment_config
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{record.bargainorId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      order_list = #{record.orderList,jdbcType=INTEGER},
+      payment_config_type = #{record.paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{record.paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{record.paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{record.paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{record.bargainorKey,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    update xx_payment_config
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bargainorId != null">
+        bargainor_id = #{bargainorId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderList != null">
+        order_list = #{orderList,jdbcType=INTEGER},
+      </if>
+      <if test="paymentConfigType != null">
+        payment_config_type = #{paymentConfigType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentFee != null">
+        payment_fee = #{paymentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentFeeType != null">
+        payment_fee_type = #{paymentFeeType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentProductId != null">
+        payment_product_id = #{paymentProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="bargainorKey != null">
+        bargainor_key = #{bargainorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    update xx_payment_config
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{bargainorId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      order_list = #{orderList,jdbcType=INTEGER},
+      payment_config_type = #{paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{bargainorKey,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    update xx_payment_config
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{bargainorId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      order_list = #{orderList,jdbcType=INTEGER},
+      payment_config_type = #{paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{bargainorKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.PaymentConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="bargainor_id" jdbcType="VARCHAR" property="bargainorId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="order_list" jdbcType="INTEGER" property="orderList" />
+    <result column="payment_config_type" jdbcType="INTEGER" property="paymentConfigType" />
+    <result column="payment_fee" jdbcType="DECIMAL" property="paymentFee" />
+    <result column="payment_fee_type" jdbcType="INTEGER" property="paymentFeeType" />
+    <result column="payment_product_id" jdbcType="VARCHAR" property="paymentProductId" />
+    <result column="bargainor_key" jdbcType="VARCHAR" property="bargainorKey" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kandashan.admin.entity.PaymentConfig">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, modify_date, bargainor_id, name, order_list, payment_config_type, 
+    payment_fee, payment_fee_type, payment_product_id, bargainor_key
+  </sql>
+  <sql id="Blob_Column_List">
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kandashan.admin.entity.PaymentConfigExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kandashan.admin.entity.PaymentConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xx_payment_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xx_payment_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kandashan.admin.entity.PaymentConfigExample">
+    delete from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    insert into xx_payment_config (id, create_date, modify_date, 
+      bargainor_id, name, order_list, 
+      payment_config_type, payment_fee, payment_fee_type, 
+      payment_product_id, bargainor_key, description
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{bargainorId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{orderList,jdbcType=INTEGER}, 
+      #{paymentConfigType,jdbcType=INTEGER}, #{paymentFee,jdbcType=DECIMAL}, #{paymentFeeType,jdbcType=INTEGER}, 
+      #{paymentProductId,jdbcType=VARCHAR}, #{bargainorKey,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    insert into xx_payment_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="bargainorId != null">
+        bargainor_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="orderList != null">
+        order_list,
+      </if>
+      <if test="paymentConfigType != null">
+        payment_config_type,
+      </if>
+      <if test="paymentFee != null">
+        payment_fee,
+      </if>
+      <if test="paymentFeeType != null">
+        payment_fee_type,
+      </if>
+      <if test="paymentProductId != null">
+        payment_product_id,
+      </if>
+      <if test="bargainorKey != null">
+        bargainor_key,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bargainorId != null">
+        #{bargainorId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderList != null">
+        #{orderList,jdbcType=INTEGER},
+      </if>
+      <if test="paymentConfigType != null">
+        #{paymentConfigType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentFee != null">
+        #{paymentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentFeeType != null">
+        #{paymentFeeType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentProductId != null">
+        #{paymentProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="bargainorKey != null">
+        #{bargainorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kandashan.admin.entity.PaymentConfigExample" resultType="java.lang.Integer">
+    select count(*) from xx_payment_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xx_payment_config
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bargainorId != null">
+        bargainor_id = #{record.bargainorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderList != null">
+        order_list = #{record.orderList,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentConfigType != null">
+        payment_config_type = #{record.paymentConfigType,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentFee != null">
+        payment_fee = #{record.paymentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymentFeeType != null">
+        payment_fee_type = #{record.paymentFeeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentProductId != null">
+        payment_product_id = #{record.paymentProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bargainorKey != null">
+        bargainor_key = #{record.bargainorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xx_payment_config
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{record.bargainorId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      order_list = #{record.orderList,jdbcType=INTEGER},
+      payment_config_type = #{record.paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{record.paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{record.paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{record.paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{record.bargainorKey,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xx_payment_config
+    set id = #{record.id,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{record.bargainorId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      order_list = #{record.orderList,jdbcType=INTEGER},
+      payment_config_type = #{record.paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{record.paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{record.paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{record.paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{record.bargainorKey,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    update xx_payment_config
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bargainorId != null">
+        bargainor_id = #{bargainorId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderList != null">
+        order_list = #{orderList,jdbcType=INTEGER},
+      </if>
+      <if test="paymentConfigType != null">
+        payment_config_type = #{paymentConfigType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentFee != null">
+        payment_fee = #{paymentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentFeeType != null">
+        payment_fee_type = #{paymentFeeType,jdbcType=INTEGER},
+      </if>
+      <if test="paymentProductId != null">
+        payment_product_id = #{paymentProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="bargainorKey != null">
+        bargainor_key = #{bargainorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    update xx_payment_config
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{bargainorId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      order_list = #{orderList,jdbcType=INTEGER},
+      payment_config_type = #{paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{bargainorKey,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kandashan.admin.entity.PaymentConfig">
+    update xx_payment_config
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      bargainor_id = #{bargainorId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      order_list = #{orderList,jdbcType=INTEGER},
+      payment_config_type = #{paymentConfigType,jdbcType=INTEGER},
+      payment_fee = #{paymentFee,jdbcType=DECIMAL},
+      payment_fee_type = #{paymentFeeType,jdbcType=INTEGER},
+      payment_product_id = #{paymentProductId,jdbcType=VARCHAR},
+      bargainor_key = #{bargainorKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
