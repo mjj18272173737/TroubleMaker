@@ -1,7 +1,7 @@
 package com.kandashan.filter;
 
 import com.kandashan.admin.service.IRedisService;
-import com.kandashan.common.UserProfile;
+import com.kandashan.common.bean.UserProfile;
 import com.kandashan.util.Constants;
 import com.kandashan.util.SpringContextHolder;
 import com.kandashan.util.UserUtils;

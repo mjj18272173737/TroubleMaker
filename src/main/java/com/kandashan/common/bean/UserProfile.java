@@ -1,4 +1,4 @@
-package com.kandashan.common;
+package com.kandashan.common.bean;
 
 import com.kandashan.admin.entity.Admin;
 import com.kandashan.admin.entity.User;

@@ -1,8 +1,7 @@
 package com.kandashan.interceptor;
 
-import com.kandashan.common.UserProfile;
+import com.kandashan.common.bean.UserProfile;
 import com.kandashan.util.Constants;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
