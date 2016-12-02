@@ -1090,6 +1090,21 @@ CREATE TABLE `xx_shipping` (
 
 /*Data for the table `xx_shipping` */
 
+/* 接口定义表*/
+CREATE TABLE `xx_adapter_services` (
+  `adapter_no` VARCHAR(32) COLLATE utf8_bin NOT NULL,
+  `identity_code` VARCHAR(64) COLLATE utf8_bin DEFAULT NULL,
+  `service_code` VARCHAR(50) COLLATE utf8_bin DEFAULT NULL,
+  `service_name` VARCHAR(200) COLLATE utf8_bin DEFAULT NULL,
+  `service_method` VARCHAR(64) COLLATE utf8_bin DEFAULT NULL,
+  `service_type` DECIMAL(8,0) DEFAULT NULL,
+  `service_status` DECIMAL(8,0) DEFAULT NULL,
+  `service_desc` VARCHAR(1000) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`adapter_no`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='接口定义表'
+
+INSERT INTO `xx_adapter_services` (`adapter_no`, `identity_code`, `service_code`, `service_name`, `service_method`, `service_type`, `service_status`, `service_desc`) VALUES('100013','Qenkf5yzZe5XoiPyWHSUVA==','ttBookingOrderServiceImpl','电商-预约保养单','saveBookingOrder',NULL,'12781001',NULL);
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

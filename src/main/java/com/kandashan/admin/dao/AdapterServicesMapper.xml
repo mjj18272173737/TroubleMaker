@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kandashan.admin.dao.AdapterServicesMapper">
+    <resultMap id="BaseResultMap" type="com.kandashan.admin.entity.AdapterServices">
+        <id column="adapter_no" jdbcType="VARCHAR" property="adapterNo"/>
+        <result column="identity_code" jdbcType="VARCHAR" property="identityCode"/>
+        <result column="service_code" jdbcType="VARCHAR" property="serviceCode"/>
+        <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
+        <result column="service_method" jdbcType="VARCHAR" property="serviceMethod"/>
+        <result column="service_type" jdbcType="VARCHAR" property="serviceType"/>
+        <result column="service_status" jdbcType="VARCHAR" property="serviceStatus"/>
+        <result column="service_desc" jdbcType="VARCHAR" property="serviceDesc"/>
+    </resultMap>
+
+<select id="getAdapterServiceByNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  SELECT * FROM xx_adapter_services WHERE adapter_no=#{adapterNo}
+</select>
+
+</mapper>

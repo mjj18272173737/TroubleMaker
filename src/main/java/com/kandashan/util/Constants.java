@@ -17,6 +17,11 @@ public class Constants {
 
     public static final String USER_CACHE_PREX = "redis_session_key_";
 
+    public static final String API_KEY = "a$%$^#w12341@#@1-03@ffs3";
+
+    // 有效的值
+    public static final Integer VALID_VALUE = 12781001;
+
     /**
      * 响应码
      */
