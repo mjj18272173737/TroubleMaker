@@ -1,6 +1,5 @@
 package com.kandashan.common.controller;
 
-import com.kandashan.annotation.AnnotationDemo;
 import com.kandashan.util.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ public class MessageAdapterController {
         return map;
     }
 
-    @AnnotationDemo(item = "meijiajie", assignedTo = "男", dateAssigned = "帅" , severity = AnnotationDemo.Severity.IMPORTANT)
     private void demo() {
 
     }
