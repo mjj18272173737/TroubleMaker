@@ -14,7 +14,7 @@
         <result property="modifyDate" column="modify_date"/>
     </resultMap>
     
-    <select id="getUserById" parameterType="int" resultType="com.kandashan.admin.entity.User">
+    <select id="getUserById" parameterType="int" resultMap="userMap">
       SELECT * FROM xx_user WHERE user_id=#{userId}
     </select>
 
@@ -29,5 +29,33 @@
     <select id="login" resultMap="userMap">
         SELECT * FROM xx_user WHERE user_name=#{userName} AND password=#{password}
     </select>
+    
+    <update id="update" parameterType="com.kandashan.admin.entity.User">
+        UPDATE xx_user
+        <set>
+            <if test="userName != null">
+                user_name=#{userName},
+            </if>
+            <if test="password != null">
+                password=#{password},
+            </if>
+            <if test="realName != null">
+                real_name=#{realName},
+            </if>
+            <if test="isValid != null">
+                is_valid=#{isValid},
+            </if>
+            <if test="loginDate != null">
+                login_date=#{loginDate},
+            </if>
+            <if test="createDate != null">
+                create_date=#{createDate},
+            </if>
+            <if test="modifyDate != null">
+                modify_date=#{modifyDate}
+            </if>
+        </set>
+        WHERE user_id=#{userId}
+    </update>
 </mapper>
 

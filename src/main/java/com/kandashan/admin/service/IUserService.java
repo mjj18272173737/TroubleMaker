@@ -16,4 +16,6 @@ public interface IUserService {
     List<User> getUser();
 
     User login(String userName, String password);
+
+    void update(User user);
 }

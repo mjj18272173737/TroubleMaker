@@ -85,26 +85,26 @@
 <div>
     <table>
         <thead>
-        <tr>
-            <th>序号</th>
-            <th>username</th>
-            <th>password</th>
-            <th>realname</th>
-            <th>createdate</th>
-            <th>操作</th>
-        </tr>
+            <tr>
+                <th>序号</th>
+                <th>username</th>
+                <th>password</th>
+                <th>realname</th>
+                <th>createdate</th>
+                <th>编辑</th>
+            </tr>
         </thead>
         <tbody>
-        <c:forEach items="${userList}" var="u" varStatus="index">
-            <tr>
-                <td>${index.index + 1}</td>
-                <td>${u.userName}</td>
-                <td>${u.password}</td>
-                <td>${u.realName}</td>
-                <td>${u.createDate}</td>
-                <th><a href="${_ctx}/user/${u.userId}/eidt.do">编辑</a></th>
-            </tr>
-        </c:forEach>
+            <c:forEach items="${userList}" var="u" varStatus="index">
+                <tr>
+                    <td>${index.index + 1}</td>
+                    <td>${u.userName}</td>
+                    <td>${u.password}</td>
+                    <td>${u.realName}</td>
+                    <td>${u.createDate}</td>
+                    <th><a href="${_ctx}/${u.userId}"></th>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
 </div>

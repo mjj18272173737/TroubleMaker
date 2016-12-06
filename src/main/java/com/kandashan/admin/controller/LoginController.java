@@ -7,6 +7,7 @@ import com.kandashan.admin.service.IUserService;
 import com.kandashan.common.bean.UserProfile;
 import com.kandashan.util.Constants;
 import com.kandashan.util.UserUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,9 @@ public class LoginController extends BaseController{
         Long time = System.currentTimeMillis();
         if (userProfile != null) {
             return "redirect:/admin/index.do";
+        }
+        if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
+            return "redirect:/toLogin.do";
         }
         User user = userService.login(userName, password);
         if (user == null) {

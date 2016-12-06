@@ -20,4 +20,6 @@ public interface IUserDao {
 
     User login(@Param("userName") String userName, @Param("password") String password);
 
+    void update(User user);
+
 }

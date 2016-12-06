@@ -28,7 +28,7 @@ public class UserServiceImpl implements IUserService{
     }
 
     public List<User> getUser() {
-        return null;
+        return userDao.getUser();
     }
 
     public User login(String userName, String password) {
@@ -38,5 +38,10 @@ public class UserServiceImpl implements IUserService{
             e.printStackTrace();
         }
         return userDao.login(userName, password);
+    }
+
+    @Override
+    public void update(User user) {
+        userDao.update(user);
     }
 }
