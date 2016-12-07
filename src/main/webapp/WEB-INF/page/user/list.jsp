@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="_ctx" value="${pageContext.request.contextPath}"></c:set>
 <html>
 <head>
@@ -83,6 +84,9 @@
 </head>
 <body>
 <div>
+    <a href="${_ctx}/user/add.do">新增</a>
+</div>
+<div>
     <table>
         <thead>
         <tr>
@@ -101,7 +105,7 @@
                 <td>${u.userName}</td>
                 <td>${u.password}</td>
                 <td>${u.realName}</td>
-                <td>${u.createDate}</td>
+                <td><fmt:formatDate value="${u.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <th><a href="${_ctx}/user/${u.userId}/eidt.do">编辑</a></th>
             </tr>
         </c:forEach>

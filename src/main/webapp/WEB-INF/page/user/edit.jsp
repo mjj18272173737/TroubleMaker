@@ -1,12 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: CPR199
-  Date: 2016-12-06
-  Time: 11:24
-  To change this template use File | Settings | File Templates.
---%>
+<!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="_ctx" value="${pageContext.request.contextPath}"></c:set>
 <html>
 <head>
@@ -15,25 +10,31 @@
 </head>
 <body>
 <div>
-    <form action="${_ctx}/user/save.do" method="post" id="user_form">
+    <form id="user_form" action="${_ctx}/user/save.do?isNew=<c:if test="${empty user}">0</c:if><c:if test="${not empty user}">1</c:if>"
+          method="post" id="user_form">
         <input type="hidden" name="userId" value="${user.userId}">
         <div>
             <label>用户名:</label>
-            <input type="text" name="userName" value="${user.userName}">
+            <input type="text" name="userName" value="${user.userName}" <c:if test="${not empty user}">readonly="readonly"</c:if>>
         </div>
+        <c:if test="${empty user}">
             <div>
+                <label>密码:</label>
+                <input type="password" name="password" value="${user.password}">
+            </div>
+        </c:if>
+        <div>
             <label>真实姓名:</label>
             <input type="text" name="realName" value="${user.realName}">
         </div>
         <div>
             <label>创建时间:</label>
-            <input type="text" name="createDate" value="${user.createDate}" readonly="readonly">
+            <input type="text" name="createDate" value="<fmt:formatDate  value="${user.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly">
         </div>
         <div>
             <label>更新时间:</label>
-            <input type="text" name="modifyDate" value="${user.modifyDate}" readonly="readonly">
+            <input type="text" name="modifyDate" value="<fmt:formatDate  value="${user.modifyDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
         </div>
-        <input type="text" name="password" value="password">
         <button type="button" id="button">button</button>
         <button type="submit" id="submit">submit</button>
     </form>
@@ -43,9 +44,12 @@
 <script>
     $("#button").click(function (even) {
         var user = $("#user_form").serialize();
-        $.post("${_ctx}/user/ajaxSave.do",{"user":user},function (result) {
-            /*location.href = "${_ctx}/user/list.do";*/
+        $.post("${_ctx}/user/ajaxSave.do", {"user": user}, function (result) {
+            /*location.href = "
+            ${_ctx}/user/list.do";*/
         })
     })
+
+
 </script>
 </html>

@@ -20,7 +20,7 @@ public class UserServiceImpl implements IUserService{
     private IUserDao userDao;
 
     public int addUser(User user) {
-        return userDao.addUser(user);
+        return userDao.save(user);
     }
 
     public User getUserById(Integer userId) {

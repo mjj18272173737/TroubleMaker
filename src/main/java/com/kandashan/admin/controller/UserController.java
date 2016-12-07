@@ -2,18 +2,18 @@ package com.kandashan.admin.controller;
 
 import com.kandashan.admin.entity.User;
 import com.kandashan.admin.service.IUserService;
+import com.kandashan.util.Base64;
+import com.kandashan.util.DigestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Created by CPR199 on 2016-12-06.
@@ -33,18 +33,34 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping("/add")
+    public ModelAndView add(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("user/edit");
+        return mv;
+    }
+
     @RequestMapping("/{userId}/eidt")
     public ModelAndView edit(HttpServletRequest request, @PathVariable("userId") Integer userId) {
-        ModelAndView mv = new ModelAndView("user/eidt");
+        ModelAndView mv = new ModelAndView("user/edit");
         User user = userService.getUserById(userId);
         mv.addObject(user);
         return mv;
     }
 
-    @RequestMapping("/save")
-    public ModelAndView save(HttpServletRequest request, User user) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView save(HttpServletRequest request, User user, int isNew) {
         ModelAndView mv = new ModelAndView("redirect:/user/list.do");
-        userService.update(user);
+        if (isNew == 0) {
+            try {
+                user.setPassword(Base64.encode(DigestUtil.digest(user.getPassword().getBytes(), "MD5")));
+                user.setCreateDate(new Timestamp(new Date().getTime()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int result = userService.addUser(user);
+        } else {
+            userService.update(user);
+        }
         return mv;
     }
 

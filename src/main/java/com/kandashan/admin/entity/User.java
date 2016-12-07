@@ -1,5 +1,7 @@
 package com.kandashan.admin.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -15,8 +17,11 @@ public class User {
     private String password;
     private String realName;
     private BigDecimal isValid;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp loginDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp createDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp modifyDate;
 
     public User() {}

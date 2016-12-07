@@ -14,9 +14,9 @@ public interface IUserDao {
 
     User getUserById(Integer userId);
 
-    int addUser(User user);
-
     List<User> getUser();
+
+    int save(User user);
 
     User login(@Param("userName") String userName, @Param("password") String password);
 

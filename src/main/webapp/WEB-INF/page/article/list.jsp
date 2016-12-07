@@ -91,7 +91,7 @@
                 <th>password</th>
                 <th>realname</th>
                 <th>createdate</th>
-                <th>编辑</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -102,7 +102,7 @@
                     <td>${u.password}</td>
                     <td>${u.realName}</td>
                     <td>${u.createDate}</td>
-                    <th><a href="${_ctx}/${u.userId}"></th>
+                    <td><a href="${_ctx}/${u.userId}">编辑</a></td>
                 </tr>
             </c:forEach>
         </tbody>
