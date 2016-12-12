@@ -22,4 +22,6 @@ public interface IUserDao {
 
     void update(User user);
 
+    List<User> getUserByName(String userName);
+
 }

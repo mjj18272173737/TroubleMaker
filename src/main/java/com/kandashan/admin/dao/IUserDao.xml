@@ -22,6 +22,10 @@
       SELECT * FROM xx_user
     </select>
 
+    <select id="getUserByName" resultMap="userMap">
+        SELECT * FROM xx_user WHERE user_name=#{userName}
+    </select>
+
     <insert id="save" parameterType="com.kandashan.admin.entity.User"  useGeneratedKeys="true" >
         INSERT INTO xx_user (user_name,password,real_name,is_valid,login_date, create_date, modify_date) VALUE (#{userName},#{password},#{realName},#{isValid},#{loginDate},#{createDate},#{modifyDate})
     </insert>

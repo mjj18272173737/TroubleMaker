@@ -16,6 +16,7 @@
         <div>
             <label>用户名:</label>
             <input type="text" name="userName" value="${user.userName}" <c:if test="${not empty user}">readonly="readonly"</c:if>>
+            <label id="error_name"></label>
         </div>
         <c:if test="${empty user}">
             <div>
@@ -47,6 +48,15 @@
         $.post("${_ctx}/user/ajaxSave.do", {"user": user}, function (result) {
             /*location.href = "
             ${_ctx}/user/list.do";*/
+        })
+    })
+
+    $("#user_form inpit[name='userName']").blur(function (even) {
+        var userName = this.val();
+        $.get("${_ctx}/user/checkUserName.do", {"userName":userName}, function (result) {
+            if (result) {
+                $("#error_name").html("用户名已存在")
+            }
         })
     })
 

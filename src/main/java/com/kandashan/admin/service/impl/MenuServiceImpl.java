@@ -38,7 +38,7 @@ public class MenuServiceImpl implements IMenuService {
                 List<Map<String, Object>> cMenuList = this.getChildrenMenu(menu.getCode());
                 colMap.put("code", menu.getCode());
                 colMap.put("name", menu.getName());
-                colMap.put("url", menu.getUrl());
+                colMap.put("href", menu.getUrl());
                 colMap.put("parentCode", menu.getParentCode());
                 if (cMenuList != null && cMenuList.size() > 0) {
                     colMap.put("children", cMenuList);
@@ -59,7 +59,7 @@ public class MenuServiceImpl implements IMenuService {
             List<Map<String, Object>> cMenus = this.getChildrenMenu(menu.getCode());
             colMap.put("code", menu.getCode());
             colMap.put("name", menu.getName());
-            colMap.put("url", menu.getUrl());
+            colMap.put("href", menu.getUrl());
             colMap.put("parentCode", menu.getParentCode());
             if (cMenus != null) {
                 colMap.put("children", cMenus);

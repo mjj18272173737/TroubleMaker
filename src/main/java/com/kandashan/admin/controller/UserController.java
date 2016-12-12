@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +63,17 @@ public class UserController {
             userService.update(user);
         }
         return mv;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/checkUserName")
+    public Object checkUserName(HttpServletRequest request, String userName) {
+        boolean status = false;
+        List<User> userList = userService.getUserByName(userName);
+        if (userList.size() > 0) {
+            status = true;
+        }
+        return status;
     }
 
 }

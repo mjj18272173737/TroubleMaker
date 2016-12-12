@@ -18,4 +18,6 @@ public interface IUserService {
     User login(String userName, String password);
 
     void update(User user);
+
+    List<User> getUserByName(String userName);
 }

@@ -2,6 +2,7 @@ package com.kandashan.admin.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.kandashan.admin.dao.IUserDao;
 import com.kandashan.admin.entity.Menu;
 import com.kandashan.admin.entity.User;
@@ -40,9 +41,10 @@ public class IndexController {
     public String index(HttpServletRequest request) {
         Map<String, Object> reslut = new HashMap<String, Object>();
         List<Map<String, Object>> treeList = menuService.getMenuListTree();
+        String treeStr = JSONObject.toJSONString(treeList);
         //String treeString = JSONArray.toJSON(treeList).toString();
-        request.setAttribute("menuList", treeList);
-        return "main";
+        request.setAttribute("menuList", treeStr);
+        return "main_mirror";
     }
 
     @ResponseBody
